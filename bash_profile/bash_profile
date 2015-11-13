@@ -1,0 +1,808 @@
+# Some applications read the EDITOR variable to determine your favourite text
+# editor. So uncomment the line below and enter the editor of your choice :-)
+#export EDITOR=/usr/bin/vim
+#export EDITOR=/usr/bin/mcedit
+
+test -s ~/.alias && . ~/.alias || true
+
+# Teamprise settings
+# Note: assuming domain username is the same as UNIX user;
+#       if that's not the case, edit the line below
+
+WINDOWS_DOMAIN=REDMOND
+WINDOWS_USERNAME=$USER
+export TF_DIFF_COMMAND='diff -u --label "%6 / %7" "%1" "%2"'
+export TF_AUTO_SAVE_CREDENTIALS=1
+
+# Include GIT auto-completion script if it exists
+# Note: This sort of thing is included in older systems
+# Comment out unless we know we need it or can decide when to include
+# [ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
+
+#
+# Set up common aliases and enviornment variables
+#
+
+alias mount-ostcdata="sudo mkdir /mnt/ostcdata; sudo mount -o vers=3 ostcrrhv02:/ostcdata /mnt/ostcdata"
+alias openssl-scx="openssl x509 -noout -in /etc/opt/microsoft/scx/ssl/scx.pem -subject -issuer"
+
+# List of systems used for development purposes
+#   PRIMARY_SYSTEM:	Primary development system (source for .teamprise files, etc)
+#   DEVELOPMENT_LIST:	List of development systems (with teamprise enlistments)
+#   SYSTEM_LIST:	Complete list of systems with certificates (no enlistments needed)
+
+declare -a DEVELOPMENT_LIST SYSTEM_LIST
+
+PRIMARY_SYSTEM=jeffcof64-rhel70-01
+
+# Note: We're now picking up the development hosts from the .pbuild file
+
+# DEVELOPMENT_LIST=(`egrep ^host: ~/.pbuild | egrep -e '[[:space:]]main$' -e '[[:space:]]main[[:space:]]' | awk '{print $3}'`)
+DEVELOPMENT_LIST=( `egrep ^host: ~/.pbuild | awk '{print $3}' | sort -u` )
+SYSTEM_LIST=( ${DEVELOPMENT_LIST[*]}
+    ostcdev-cent6-10 ostcdev64-cent6-01
+)
+BUILD_LIST=( `egrep ^host: ~/.pbuild | egrep 'build.*nip$' | awk '{print $3}' | sort -u` )
+
+# Random other aliases and enviornment variables
+
+IGNOREEOF=3
+
+alias file_manager="nautilus --no-desktop"
+alias doxy="firefox file:///home/jeffcof/dev/target/scxcore_doc/html/index.html &"
+
+#
+# Platform specific setup
+#
+
+# Save path so, if we re-run ourselves, the path doesn't get needlessly long
+
+if [ "${SAVED_PATH:-==Unset==}" = "==Unset==" ]; then
+    export SAVED_PATH="${PATH}"
+else
+    export PATH="${SAVED_PATH}"
+fi
+
+# Some systems have less, some don't - if we don't, just use more
+
+if ( type less > /dev/null 2>&1 ); then
+    export LESS="-Ims"
+    export PAGER="less"
+else
+    alias less="more"
+    export MORE="-is"
+fi
+
+# For 'ls', use colors if we have them (and use LS_OPTIONS if it exists)
+
+if [ $(uname -s) = "Linux" -a -f /etc/SuSE-release ]; then
+    if [ "${LS_OPTIONS}" != "" ]; then
+	export LS_OPTIONS="${LS_OPTIONS} -p"
+    else
+	alias ls="ls -N --color=tty -T 0 -p"
+    fi
+else
+    alias ls="ls -p"
+fi
+
+# Try and find teamprise (and other things that may vary) ...
+
+assign_alias()
+{
+    local assigned=0
+    local type=$1
+    local prog=$2
+    shift 2
+
+    if [ $type != 'alias' -a $type != 'path' ]; then
+	echo "Error: assign_alias() called without alias/path designation!"
+	return 1
+    fi
+
+    for i in $@; do
+	if [ -e $i ]; then
+	    if [ $type = 'alias' ]; then
+		alias ${prog}=${i}
+		assigned=1
+		break
+	    elif [ $type = 'path' ]; then
+		export PATH=`dirname $i`:$PATH
+		assigned=1
+		break
+	    fi
+	fi
+    done
+
+    if [ $assigned -eq 0 ]; then
+	echo "Error: Unable to set alias for program: ${prog}" >&2
+	return 1
+    fi
+
+    return 0
+}
+
+#	Teamprise CLI should always exist ...
+
+assign_alias path tf \
+	/opt/teamprise/tf \
+	/opt/TEE-CLC-10.0.0/tf
+
+#	Teamprise Explorer only runs on Linux, Solaris Sparc, and AIX
+#	( Note: Not sure if TEE has Teamprise Explorer; disable for now )
+
+TFEXP_SUPPORTED=0
+
+case $(uname -s) in
+    Linux | AIX)
+	TFEXP_SUPPORTED=0
+	;;
+
+    SunOS)
+	[ $(uname -p) = "sparc" ] && TFEXP_SUPPORTED=0
+	;;
+esac
+
+if [ $TFEXP_SUPPORTED -ne 0 ]; then
+    assign_alias alias tfexp \
+	/opt/TeampriseExplorer/TeampriseExplorer \
+	/opt/TeampriseExplorer-3.1.0.8392R/TeampriseExplorer \
+	/opt/TeampriseExplorer-3.0.0.8012R/TeampriseExplorer \
+	/opt/TeampriseExplorer-2.2.0.6068R/TeampriseExplorer
+fi
+
+# Add TFPROXY to the list of stuff on the path
+
+export PATH=/opt/tfprox/bin:${PATH}
+
+# If Rational tools (purify & friends) are around, run initialization files
+# (typically installed in something like:
+#  /opt/rational/releases/PurifyPlus.7.0.0.0-012/i386_linux2/bin)
+
+if [ -f /opt/rational/purifyplus_setup.sh ]; then
+    source /opt/rational/purifyplus_setup.sh > /dev/null
+fi
+
+# Generic settings by O/S
+
+case `uname -s` in
+    AIX)
+	alias ps-scx="ps -ef | grep cim"
+	alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
+	export PATH=/opt/freeware/bin:/usr/vacpp/bin:$PATH
+
+	# AIX 7.1 appears to have a low data limit, causing dbx grief
+	[ `uname -v` -eq 7 ] && ulimit -d unlimited
+	;;
+
+    Darwin)
+	alias ps-scx="ps -ef | grep cim"
+	alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
+
+	export PATH=/usr/local/bin:$PATH
+	;;
+
+    HP-UX)
+	alias ps-scx="ps -ef | grep cim"
+	alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
+
+	export PATH=/usr/local/bin:/opt/java1.5/bin:$PATH
+	export UNIX_STD=2003
+	;;
+
+    Linux)
+	# alias ps-scx="ps aux | egrep \"cim|scx\""
+	alias ps-scx="ps aux | grep cim"
+	alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
+	export PATH=$PATH:/usr/sbin
+
+	export PS1="\u@\h:\W> "
+	;;
+
+    SunOS)
+	alias ps-scx="ps -ef | grep cim"
+
+	# On Solaris, emacs has a wierd menu in the minibuffer; clearing LANG gets rid of it
+	alias emacs="LANG= emacs"
+
+	if [ `uname -r` == '5.8' -o `uname -r` == '5.9' ]; then
+	    # Fix up LD_LIBRARY_PATH so we can run openssl ...
+	    export LD_LIBRARY_PATH=/usr/lib:/usr/local/lib:/usr/local/ssl/lib
+	fi
+
+	if [ `uname -r` == '5.8' -o `uname -r` == '5.9' ]; then
+	    alias users="who | cut -d\  -f1 | sort -u | tr \"\n\" ' '; echo"
+	else
+	    alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
+	fi
+
+	# Sun systems put software in an unusual spot (generally not on path)
+	if [ `uname -r` == '5.11' ]; then
+	    export MANPATH="/usr/share/man:/opt/solstudio12.2/man"
+	    export PATH="$PATH:/opt/solstudio12.2/bin"
+	else
+	    export MANPATH="/usr/share/man:/usr/sfw/man:/opt/sfw/man:/opt/SUNWspro/man:/usr/local/man"
+	    export PATH="$PATH:/usr/local/bin:/usr/sfw/bin:/opt/sfw/bin"
+	    export PATH="$PATH:/opt/SUNWspro/bin:/opt/SUNWspro/prod/bin"
+	fi
+	;;
+
+    *)
+	;;
+esac
+
+# Host-specific settings
+#
+# Some hosts (i.e. Mac OSX) give us a fully qualified name - we don't want that
+
+S_HOSTNAME=`hostname`
+S_HOSTNAME=${S_HOSTNAME/\.opsmgr\.lan/}
+
+case $S_HOSTNAME in
+    scxcore-rhel50-01 | scxcore-rhel51-01)
+	export PATH=/usr/java/default/bin:$PATH
+	;;
+esac
+
+unset S_HOSTNAME
+
+# Check if tfproxy is running
+if [ -x /opt/tfprox/bin/tfprox ]; then
+    if ! ps -aef | grep -i tfprox | grep -v grep  > /dev/null; then
+	echo "Starting tfproxy..."
+	if ! sudo /opt/tfprox/bin/tfprox -b; then
+	    echo "Fatal error:  Unable to start tfproxy..."
+	fi
+    fi
+fi
+
+# Include environment for ConfigMgr project if it exists
+
+# [ -f ~/.bashrc_cm ] && source ~/.bashrc_cm
+
+# Some additional path stuff
+
+if [ -f /opt/git/bin/git ]; then
+    export PATH=/opt/git/bin:${PATH}
+    unset SSH_ASKPASS
+fi
+
+# Support for rbenv
+if [ -d ~/.rbenv ]; then
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+fi
+
+
+export PATH=.:~/bin:${PATH}
+
+#
+# Functions
+#
+
+distribute_host()
+{
+    if [ $HOSTNAME != "$PRIMARY_SYSTEM" ]; then
+	echo "Can only redistribute startup files from primary dev system" 1>&2
+	return 1;
+    fi
+
+    if [ "${1}" != "$PRIMARY_SYSTEM" -a "${1}" != "" ]; then
+	echo -n "  Copying to host: ${1} ..."
+	scp -q ~/.bash_profile ~/.bashrc ~/.bashrc_cm ~/.emacs ~/.git-completion.bash ~/.pbuild ${1}:
+	[ $? -eq 0 ] && echo ""
+    fi
+}
+
+distribute_startup()
+{
+    if [ $HOSTNAME != "$PRIMARY_SYSTEM" ]; then
+	echo "Can only redistribute startup files from primary dev system" 1>&2
+	return 1;
+    fi
+
+    #
+    # Create a new bootstrap distribution file
+    #
+
+    cd ~/
+
+    # Copy TFS proxy password file
+    TFPROX_PATH=/opt/tfprox/etc/
+    DOMAIN_USER=`echo ${WINDOWS_USERNAME} | tr '[a-z]' '[A-Z]'`
+    DOMAIN_DOMAIN=`echo ${WINDOWS_DOMAIN} | tr '[a-z]' '[A-Z]'`
+    PROXY_FILENAME=tfprox.passwd.${DOMAIN_DOMAIN}.${DOMAIN_USER}
+
+    cp ${TFPROX_PATH}${PROXY_FILENAME} ~/
+    tar cf base-unix.tar \
+	.bash_profile .bashrc .bashrc_cm .emacs .git-completion.bash .pbuild $PROXY_FILENAME \
+	.ssh/id_* .ssh/authorized_keys .wincred \
+	bin/arch
+    rm ${PROXY_FILENAME}
+   
+    # Copy new .bash_profile and .emacs to the systems we know about
+    for i in ${SYSTEM_LIST[*]}; do
+	distribute_host ${i}
+    done
+
+    return 0;
+}
+
+# Function: tfs_activate_license
+#
+# Activate a license for SCX development
+
+tfs_activate_license()
+{
+    # Do the licensing ...
+
+    tf eula -accept
+
+    # Create - and copy - the password file (if it doesn't already exist)
+
+    echo
+    tfs_reset_password -nocreate
+}
+
+# Function: tfs_create_workspace
+#
+# Create a workspace for SCX development in a specific directory
+#
+# Parameters:
+#	Workspace Name	Name of the workspace to create
+#	Directory	Directory path to create workspace at
+#	Type		Type of enlistment ("main" or whatever)
+
+tfs_internal_get_workspace_map()
+{
+    case ${1} in
+
+	#
+	# Working branch stuff
+	#
+
+	work-pal)
+	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/Common/SCX/Pal"
+	    ;;
+
+	work-omi)
+	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/Common/SCX/OMI"
+	    ;;
+
+	work-om)
+	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/SCXCore/OnPrem/SCXCore"
+	    ;;
+
+	work-dsc)
+	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/DSC"
+	    ;;
+
+	work-oms)
+	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/omsagent"
+	    ;;
+
+	work-cm)
+	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/SCXCM/OnPrem/SCXCM/main"
+	    ;;
+
+	work-vmm)
+	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/VMMXplat/OnPrem/VMMXplat"
+	    ;;
+
+	work-apache)
+	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/apache-osm"
+	    ;;
+
+	work-filebrowser)
+	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/MessageAnalyzer_FileBrowser"
+	    ;;
+
+	work-mysql)
+	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/MySQL-osm"
+	    ;;
+
+	work-tools)
+	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/Common/SCX/Tools"
+	    ;;
+
+	#
+	# Mainline stuff
+	#
+
+	main-apache-omi)
+	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/Apache/omi"
+	    ;;
+
+	main-apache-pal)
+	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/Apache/pal"
+	    ;;
+
+	main-apache-apache)
+	    echo "$/CDM_SFE/Branches/OnPrem/Main/OnPrem/SCX_Dev/apache-osm"
+	    ;;
+
+	main-mysql-omi)
+	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/MySQL/omi"
+	    ;;
+
+	main-mysql-pal)
+	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/MySQL/pal"
+	    ;;
+
+	main-mysql-mysql)
+	    echo "$/CDM_SFE/Branches/OnPrem/Main/OnPrem/SCX_Dev/MySQL-osm"
+	    ;;
+
+	main-om-omi)
+	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/SCXCore/omi"
+	    ;;
+
+	main-om-pal)
+	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/SCXCore/pal"
+	    ;;
+
+	main-om-opsmgr)
+	    echo "$/CDM_SFE/Branches/OnPrem/Main/OnPrem/SCXCore"
+	    ;;
+
+	main-cm-omi)
+	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/SCXCM/omi"
+	    ;;
+
+	main-cm-pal)
+	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/SCXCM/pal"
+	    ;;
+
+	main-cm-configmgr)
+	    echo "$/CDM_SFE/Branches/OnPrem/Main/OnPrem/SCXCM/main"
+	    ;;
+
+	main-vmm-pal)
+	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/VMMXplat/pal"
+	    ;;
+
+	main-vmm-vmm)
+	    echo "$/CDM_SFE/Branches/OnPrem/Main/OnPrem/VMMXplat"
+	    ;;
+
+	#
+	# 2012R2_URNext stuff; Config Manager
+	#
+
+	2012R2_ur-cm-omi)
+	    echo "$/cdm_sfe/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/SCXCM/omi"
+	    ;;
+
+	2012R2_ur-cm-pal)
+	    echo "$/cdm_sfe/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/SCXCM/pal"
+	    ;;
+
+	2012R2_ur-cm-configmgr)
+	    echo "$/cdm_sfe/Branches/OnPrem/Rel/SC2012R2_URNext/OnPrem/SCXCM/main"
+	    ;;
+
+	#
+	# 2012R2_URNext stuff; Operations Manager
+	#
+
+	2012R2_ur-om-omi)
+	    echo "$/cdm_sfe/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/SCXCore/omi"
+	    ;;
+
+	2012R2_ur-om-pal)
+	    echo "$/cdm_sfe/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/SCXCore/pal"
+	    ;;
+
+	2012R2_ur-om-opsmgr)
+	    echo "$/cdm_sfe/Branches/OnPrem/Rel/SC2012R2_URNext/OnPrem/SCXCore"
+	    ;;
+
+	#
+	# 2012R2_URNext stuff; VMM
+	#
+
+	2012R2_ur-vmm-pal)
+	    echo "$/cdm_sfe/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/VMMXplat/pal"
+	    ;;
+
+	2012R2_ur-vmm-vmm)
+	    echo "$/cdm_sfe/Branches/OnPrem/Rel/SC2012R2_URNext/OnPrem/VMMXplat"
+	    ;;
+
+	#
+	# Odd-ball branches
+	#
+	v1-om)
+#	    echo "$/ScxCore/maintenance/v1-branch"
+	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SCX2007_UR/Core/maintenance/V1"
+	    ;;
+
+	2012SP1_ur-om)
+	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012SP1_UR/OnPrem/SCXCore"
+	    ;;
+
+	*)
+	    return 1
+	    ;;
+    esac
+
+    return 0
+}
+
+tfs_create_workspace()
+{
+    if [ -z "${1}" -o -z "${2}" -o -z "${3}" ]; then
+	echo "Usage: create_workspace <workspace-name> <dir-path> <type>" 1>&2
+	return 1;
+    fi
+
+    # Create the directory if it doesn't exist
+    DIR=${2}
+    [ -d ${DIR} ] || (echo "Creating directory '${DIR}' ..."; mkdir -p ${DIR})
+
+    LOCATION=`tfs_internal_get_workspace_map "${3}"`
+    if [ -z "${LOCATION}" ]; then
+	echo "Error: Enlistment type is not known; edit tfs_internal_get_workspace_map"
+	return 1
+    fi
+
+    # Determine the proper profile to use
+
+    case ${LOCATION} in
+	$/CDM_SFE*)
+	    PROFILE="tfprox"
+	    ;;
+
+	*)
+	    echo "Error: Unrecognized TFS branch path - can't determine TFS profile"
+	    return 1
+	    ;;
+    esac
+
+    # Finally, do our thing
+
+    echo "Creating workspace \"$1\" at directory \"$2\" ..."
+
+    tf workspace -new -location:server -collection:http://127.0.0.1:8080/tfs/cdm -login:${WINDOWS_DOMAIN}\\${WINDOWS_USERNAME},FakePassword $1
+    echo "Mapping workspace ..."
+    tf workfold -map -workspace:$1 "$LOCATION" $2
+}
+
+tfs_remap_workspace()
+{
+    if [ -z "${1}" -o -z "${2}" ]; then
+	echo "Usage: tfs_remap_workspace <workspace-alias> <dir-path>" 1>&2
+	return 1;
+    fi
+
+    LOCATION=`tfs_internal_get_workspace_map "${1}"`
+    if [ -z "${LOCATION}" ]; then
+	echo "Error: Enlistment type is not known; edit tfs_internal_get_workspace_map"
+	return 1
+    fi
+
+    (	cd $2
+
+	# Get the workspace name (grep for username/domain name to avoid SERVICEB authentication for OM v1-branch
+	echo "Looking up workspace name ..."
+	WORKSPACE_COUNT=`tf workspaces -format:brief | grep -i "${WINDOWS_DOMAIN}" | grep -i "${WINDOWS_USERNAME}" | wc -l`
+
+	if [ $WORKSPACE_COUNT -gt 1 ]; then
+	    echo "Error: More than one workspace is defind; unable to reconcile workspace name"
+	    return 1
+	fi
+
+	WORKSPACE=`tf workspaces -format:brief | grep -i "${WINDOWS_DOMAIN}" | grep -i "${WINDOWS_USERNAME}" | awk '{print $1}'`
+	echo "  (Workspace: $WORKSPACE)"
+
+	# Delete any existing changes
+	echo "Undoing any changes ..."
+	tf undo -r .
+
+	# Unmap/remap
+	echo "Unmapping old workspace ..."
+	tf workfold -unmap ${2}
+
+	echo "Mapping new workspace ..."
+	tf workfold -map $LOCATION ${2} -workspace:$WORKSPACE
+
+	# Update
+	echo "Updating workspace"
+	tf get
+    )
+}
+
+tfs_map_workspace()
+{
+    if [ -z "${1}" -o -z "${2}" -o -z "${3}" ]; then
+	echo "Usage: create_workspace <workspace-name> <dir-path> <type>" 1>&2
+	return 1;
+    fi
+
+    # Create the directory if it doesn't exist
+    DIR=${2}
+    [ -d ${DIR} ] || (echo "Creating directory '${DIR}' ..."; mkdir -p ${DIR})
+
+    LOCATION=`tfs_internal_get_workspace_map "${3}"`
+    if [ -z "${LOCATION}" ]; then
+	echo "Error: Enlistment type \"${3}\" is not known in tfs_internal_get_workspace_map"
+	return 1
+    fi
+
+    echo "Mapping workspace \"$1\" at directory \"$2\" ..."
+
+    tf workfold -map -workspace:$1 "$LOCATION" $2
+}
+
+tfs_create_all_workspaces()
+{
+    if [ -z "${1}" ]; then
+	echo "Usage: tfs_create_all_workspaces <workspace-name>" 1>&2
+	return 1;
+    fi
+
+    DIR_PATHS=(~/dev/work/opsmgr ~/dev/work/oms ~/dev/work/pal ~/dev/work/omi)
+    BRANCH_NAMES=(work-om work-oms work-pal work-omi)
+
+    # Create the directories in case they don't exist
+    for i in ${DIR_PATHS[*]}; do
+	mkdir -p ${i}
+    done
+
+    COUNT=${#DIR_PATHS[*]}
+    for (( i=0; $i < ${COUNT}; i++ )); do
+	if [ $i -eq 0 ]; then
+	    tfs_create_workspace ${1} ${DIR_PATHS[$i]} ${BRANCH_NAMES[$i]}
+	else
+	    tfs_map_workspace ${1} ${DIR_PATHS[$i]} ${BRANCH_NAMES[$i]}
+	fi
+    done
+}
+
+# Function: tfs_reset_password
+#
+# Re-enter the password for TFS - useful on a password change
+
+tfs_reset_password()
+{
+    # Create - and copy - the password file
+    # Note that tfprox wants the username to be in uppercase ...
+
+    TFPROX_PATH=/opt/tfprox/etc/
+    DOMAIN_USER=`echo ${WINDOWS_USERNAME} | tr '[a-z]' '[A-Z]'`
+    DOMAIN_DOMAIN=`echo ${WINDOWS_DOMAIN} | tr '[a-z]' '[A-Z]'`
+    PROXY_FILENAME=tfprox.passwd.${DOMAIN_DOMAIN}.${DOMAIN_USER}
+
+    if [ -e ${TFPROX_PATH}${PROXY_FILENAME} -a "$1" = "-nocreate" ]; then
+	echo "Password cache file ${PROXY_FILENAME} already exists"
+    else
+	echo "Enter your domain password for user ${DOMAIN_USER}:"
+	tfpasswd ${DOMAIN_DOMAIN} ${DOMAIN_USER}
+	sudo cp ${PROXY_FILENAME} ${TFPROX_PATH}
+	rm ${PROXY_FILENAME}
+    fi
+}
+
+# Function: tfs_distribute_password()
+#
+# Distributes cached password in TFS to all other hosts
+
+tfs_distribute_password()
+{
+    if [ "$1" != "DISTRIBUTE" ]; then
+	echo "Usage: tfs_distribute_password DISTRIBUTE" >&2
+	return 1
+    fi
+
+    # Determine the name of the password file
+    DOMAIN_DOMAIN=`echo ${WINDOWS_DOMAIN} | tr '[a-z]' '[A-Z]'`
+    DOMAIN_USER=`echo ${WINDOWS_USERNAME} | tr '[a-z]' '[A-Z]'`
+    PROXY_FILENAME=tfprox.passwd.${DOMAIN_DOMAIN}.${DOMAIN_USER}
+
+    if [ "$2" = "" ]; then
+	if [ $HOSTNAME != "$PRIMARY_SYSTEM" ]; then
+	    echo "Can only redistribute startup files from primary dev system" 1>&2
+	    return 1
+	fi
+
+	# The password file should exist already
+
+	PROXY_FILENAME="/opt/tfprox/etc/${PROXY_FILENAME}"
+	if [ ! -e $PROXY_FILENAME ]; then
+	    echo "Error: Proxy file ${PROXY_FILENAME} does not exist!"
+	    return 1
+	fi
+
+	PROXY_PASSWORD=`cat ${PROXY_FILENAME}`
+
+	# Distribute the password hash file to each of our hosts
+	for i in ${SYSTEM_LIST[*]}; do
+	    if [ ${i} != "$PRIMARY_SYSTEM" ]; then
+		echo -n "  Updating host: ${i} ..."
+		ssh ${i} "source ~/.bash_profile; tfs_distribute_password DISTRIBUTE ${PROXY_PASSWORD}"
+		[ $? -eq 0 ] && echo ""
+	    fi
+	done
+
+	return 0
+    fi
+
+    # This code runs on remote system
+
+    echo "$2" > ${PROXY_FILENAME}
+    sudo cp ${PROXY_FILENAME} /opt/tfprox/etc/
+    rm ${PROXY_FILENAME}
+}
+
+# Function: tfs_rebuild()
+#
+# Rebuilds & reinstalls TFS from source code
+
+tfs_rebuild()
+{
+    if [ "$1" == "" ]; then
+	echo "Usage: tfs_rebuild <version>" >&2
+	return 1
+    fi
+
+    # Verify that the source file exists
+
+    TFPROX_TAR_GZ=~/tfprox-$1.tar.gz
+    TFPROX_DIR=/tmp/tfprox-$1/
+    if [ ! -f $TFPROX_TAR_GZ ]; then
+	echo "File $TFPROX_TAR_GZ does not exist" >&2
+	return 1
+    fi
+
+    # Kill off tfprox if it's running - in a way that runs on all platforms
+
+    for i in `ps -ef | grep tfprox | grep -v grep | awk '{print $2}'`; do
+	echo "Killing process $i ..."
+	sudo /bin/kill -9 $i
+    done
+
+    # Unpack the tfprox distribution, rebuild it, and install it
+
+    cp $TFPROX_TAR_GZ /tmp
+    gunzip /tmp/tfprox-$1.tar.gz
+    ( cd /tmp; tar xf tfprox-$1.tar )
+    ( cd $TFPROX_DIR; ./configure; echo "Building tfprox ..."; make; echo "Installing tfprox ..."; sudo make install )
+    echo "Cleaning up ..."
+    rm -rf /tmp/tfprox-$1*
+
+    # Restart new TFS server
+
+    echo "Restarting TFS ..."
+    if ! sudo /opt/tfprox/bin/tfprox -b; then
+	echo "Fatal error:  Unable to start tfproxy..."
+    fi
+}
+
+# Function: global_find
+#
+# Search for a string globally throughout a directory structure
+#
+# Parameters:
+#   String to search	(Typically quoted) String to search for
+#   Search Path		Directory search path to begin searching at
+
+global_find_usage()
+{
+    echo "Usage: global_find <search-string> <search-path>" 1>&2
+}
+
+global_find()
+{
+    if [ -z "${1}" -o -z "${2}" ]; then
+	global_find_usage
+	return 1;
+    fi
+
+    echo "Starting search for string \"$1\" in file path \"$2\" ..."
+
+    # Only Linux appears to have '-0' for xargs ...
+    if [ $(uname -s) = "Linux" ]; then
+	find $2 -type f -print0 | xargs -0 grep -i "$1"
+    else
+	find $2 -type f | xargs grep -i "$1"
+    fi
+}
