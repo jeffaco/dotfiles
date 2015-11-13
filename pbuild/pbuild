@@ -1,0 +1,245 @@
+#
+# Configuration file for pbuild.  This file is normally stored in ~/.pbuild,
+# but can be customized with environment variable "PBUILD" (full path).
+#
+
+#
+# Default log file location
+# With no customization, you get:  "~/"  (expanded to your home directory)
+#
+# You can customize with lines like the following:
+# logdir: ~/pbuild_logs
+# logdir_prior: ~/pbuild_logs/prior
+#
+# If specified, logdir_prior forms a logfile directory that log files are
+# moved to prior to pbuild starting up.  This allows you to save one level
+# of prior log files from pbuild.
+#
+# Be certain to create the logfile directory prior to running pbuild
+
+logdir: ~/pbuild_logs
+logdir_prior: ~/pbuild_logs/prior
+
+#
+# Default branch to build if unspecified on command line.
+# With no customization, you get:  ""  (no branch).
+#
+# If no default branch is defined, and no branch is specified on the command
+# line, then no host entries may contain branch specifications (for backwards
+# compatibility, or to insist that a branch is specified).
+#
+# NOTE: This line must appear before all host entries to be handled properly!
+#
+# You can customize with a line like the following:
+# branch: main
+
+branch: om-work
+
+#
+# Systems to exclude in the build:
+# With no customization, you get:  ""
+#
+# You can customize with a line like the following:
+# exclude: sun_5.10_sparc,suse_9_32
+
+#
+# Settings that may be customized:
+# With no cusomization, you get:
+#   "CheckValidity,Debug,DeleteLogfiles,NoDiagnoseErrors,NoLogfileBranch,NoLogfileRename,Progress,SummaryScreen,TFProxStart"
+#
+# You can customize with a line like the following:
+#
+# settings: LogfileRename,NoSummaryScreen
+
+settings: NoCheckValidity,LogfileRename,NoSummaryScreen
+
+#
+# Per-project configuration options:
+#   Keyword:Project:value
+#
+# Example: "configure_options : om : --enable-local-omi"
+#
+# Valid keywords:  make_target, configure_options
+
+#
+# Test settings that may be customized:
+# Attributes are controlled with "test_attributes",
+# Test names are controlled with "test_names".
+#
+# With no customization, you get all tests (no restrictions)
+#
+# You can customize with a line like the following:
+#
+# test_attributes: -slow
+# test_names: atomic,condition
+
+#
+# This rest of the file contains lines with three pieces of information per
+# line (space separated):
+#   Optional: "Host:" constant to specify that this is a host entry
+#   Key (name for referring to the entry)
+#   Host name (DNS name or IP address)
+#   Directory path on host
+#   Optional: Branch specification (to match with command line and/or default)
+#   Optional: Project (must specify branch to specify project)
+#      Project must be one of:
+#         om (for Operations Manager)
+#         cm (for Configuration Manager), or
+#	  others, as defined by project.py
+#      If not specified, will default to om
+
+#
+# SCXCore (OpsMgr) Project - Working Branch
+#
+
+host:	aix_5.3		ostcdev-aix53-01	~/dev/work/opsmgr	om-work	om
+host:	aix_6.1		ostcdev-aix61-01	~/dev/work/opsmgr	om-work	om
+host:	aix_7.1		ostcdev-aix71-01	~/dev/work/opsmgr	om-work	om
+host:	centos_5_32	ostcdev-cent5-01	~/dev/work/opsmgr	om-work om
+host:	centos_5_64	ostcdev64-cent5-01	~/dev/work/opsmgr	om-work	om
+host:	debian_5_32	scxomd-deb5-01		~/dev/work/opsmgr	om-work	om
+host:	debian_5_64	scxomd64-deb5-01	~/dev/work/opsmgr	om-work	om
+host:	hp_v2_ia64	ostcdevia-hp23-01	~/dev/work/opsmgr	om-work	om
+host:	hp_v2_risc	scxrrhpr14		~/dev/work/opsmgr	om-work	om
+host:	hp_v3_ia64	scxhpv3-11		~/dev/work/opsmgr	om-work	om
+host:	hp_v3_risc	scxrrhpr12		~/dev/work/opsmgr	om-work	om
+host:	redhat_5_32	ostcdev-rhel5-01	~/dev/work/opsmgr	om-work	om
+host:	redhat_5_64	ostcdev64-rhel5-01	~/dev/work/opsmgr	om-work	om
+host:	redhat_6_32	ostcdev-rhel6-01	~/dev/work/opsmgr	om-work	om
+host:	redhat_6_64	ostcdev64-rhel6-01	~/dev/work/opsmgr	om-work	om
+host:	redhat_7_64	ostcdev64-rhel7-10	~/dev/work/opsmgr	om-work	om
+host:	sun_5.10_sparc	ostcdev-sparc10-15	~/dev/work/opsmgr	om-work	om
+host:	sun_5.10_x86	ostcdev-sol10-01	~/dev/work/opsmgr	om-work	om	# jeffcof
+host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/work/opsmgr	om-work	om
+host:	sun_5.11_x86	ostcdev-sol11-01	~/dev/work/opsmgr	om-work	om
+host:	suse_10_32	ostcdev-sles10-01	~/dev/work/opsmgr	om-work	om	# jeffcof
+host:	suse_10_64	ostcdev64-sles10-01	~/dev/work/opsmgr	om-work	om	# jeffcof
+host:	suse_11_32	ostcdev-sles11-01	~/dev/work/opsmgr	om-work	om
+host:	suse_11_64	ostcdev64-sles11-01	~/dev/work/opsmgr	om-work	om
+host:	suse_12_64	dev64-sles12-01		~/dev/work/opsmgr	om-work	om
+
+#
+# ConfigMgr Project - Working Branch
+#
+
+host:	aix_5.3		ostcdev-aix53-01	~/dev/work/configmgr	cm-work	cm
+host:	aix_6.1		ostcdev-aix61-01	~/dev/work/configmgr	cm-work	cm
+host:	aix_7.1		ostcdev-aix71-01	~/dev/work/configmgr	cm-work	cm
+host:	hp_v2_ia64	ostcdevia-hp23-01	~/dev/work/configmgr	cm-work	cm
+host:	hp_v2_risc	scxrrhpr14		~/dev/work/configmgr	cm-work	cm
+host:	hp_v3_ia64	scxhpv3-11		~/dev/work/configmgr	cm-work	cm
+host:	hp_v3_risc	scxrrhpr12		~/dev/work/configmgr	cm-work	cm
+host:	redhat_5_32	ostcdev-rhel5-01	~/dev/work/configmgr	cm-work	cm
+host:	redhat_5_64	ostcdev64-rhel5-01	~/dev/work/configmgr	cm-work	cm
+host:	sun_5.10_sparc	ostcdev-sparc10-15	~/dev/work/configmgr	cm-work	cm
+host:	sun_5.10_x86	ostcdev-sol10-01	~/dev/work/configmgr	cm-work	cm
+host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/work/configmgr	cm-work	cm
+host:	sun_5.11_x86	ostcdev-sol11-01	~/dev/work/configmgr	cm-work	cm
+host:	suse_10_32	ostcdev-sles10-01	~/dev/work/configmgr	cm-work	cm
+host:	suse_10_64	ostcdev64-sles10-01	~/dev/work/configmgr	cm-work	cm
+
+#
+# Apache Project - Working Branch
+#
+
+host:	suse_10_32	ostcdev-sles10-01	~/dev/work/apache	apache-work apache
+host:	suse_10_64	ostcdev64-sles10-01	~/dev/work/apache	apache-work apache
+
+#
+# MySQL Project - Working Branch
+#
+
+host:	suse_10_32	ostcdev-sles10-01	~/dev/work/mysql	mysql-work mysql
+host:	suse_10_64	ostcdev64-sles10-01	~/dev/work/mysql	mysql-work mysql
+
+#
+# OMI Project - Working Branch
+#
+
+host:	redhat_7_64_p	jeffcof64-rhel70-01	~/dev/p-work/omi	omi-work omi
+
+#
+# OMS Project - Working Branch
+#
+
+host:	cent_5_32	ostcdev-cent5-01	~/dev/work/oms		oms-work oms
+host:	cent_5_64	ostcdev64-cent5-01	~/dev/work/oms		oms-work oms
+
+#
+# PAL Project - Working Branch
+#
+
+host:	redhat_7_64_p	jeffcof64-rhel70-01	~/dev/p-work/pal	pal-work pal
+
+#
+# VMM Project - Working Branch
+#
+
+host:	suse_10_32	ostcdev-sles10-01	~/dev/work/vmm		vmm-work vmm
+host:	suse_10_64	ostcdev64-sles10-01	~/dev/work/vmm		vmm-work vmm
+
+#
+# Branch 2012R2_URNext (for OM)
+#
+
+host:	aix_5.3		ostcdev-aix53-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	aix_6.1		ostcdev-aix61-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	aix_7.1		ostcdev-aix71-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	centos_5_32	ostcdev-cent5-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	centos_5_64	ostcdev64-cent5-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	debian_5_32	scxomd-deb5-01		~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	debian_5_64	scxomd64-deb5-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	hp_v2_ia64	ostcdevia-hp23-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	hp_v2_risc	scxrrhpr14		~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	hp_v3_ia64	scxhpv3-11		~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	hp_v3_risc	scxrrhpr12		~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	redhat_4_32	ostcdev-rhel4-10	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	redhat_4_64	ostcdev64-rhel4-10	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	redhat_5_32	ostcdev-rhel5-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	redhat_5_64	ostcdev64-rhel5-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	redhat_6_32	ostcdev-rhel6-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	redhat_6_64	ostcdev64-rhel6-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	redhat_7_64	ostcdev64-rhel7-10	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	sun_5.09_sparc	ostcdev-sparc9-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	sun_5.10_sparc	ostcdev-sparc10-15	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	sun_5.10_x86	ostcdev-sol10-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	sun_5.11_x86	ostcdev-sol11-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	suse_09_32	ostcdev-sles9-10	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	suse_10_32	ostcdev-sles10-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	suse_10_64	ostcdev64-sles10-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	suse_11_32	ostcdev-sles11-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	suse_11_64	ostcdev64-sles11-01	~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+host:	suse_12_64	dev64-sles12-01		~/dev/2012R2_URNext/om/opsmgr	om-2012R2	om
+
+#
+# Build hosts (to run cleanup script)
+#
+
+#host:	aix_5.3		scxaix2			~/			build	nip
+#host:	aix_6.1		scxaix3-4		~/			build	nip
+#host:	aix_7.1		scxbld-aix71-01		~/			build	nip
+#host:	centos_5_32	scxombld-cent5-01	~/			build	nip
+#host:	centos_5_64	scxombld64-cent5-01	~/			build	nip
+#host:	debian_5_32	scxomb-deb5-01		~/			build	nip
+#host:	debian_5_64	scxomb64-deb5-01	~/			build	nip
+#host:	hp_v2_ia64	ostcbldia-hpux23-01	~/			build	nip
+#host:	hp_v2_risc	scxhpr6			~/			build	nip
+#host:	hp_v3_ia64	scxhpv3-41		~/			build	nip
+#host:	hp_v3_risc	scxhpr1			~/			build	nip
+#host:	redhat_4_32	scxbld-rhe40-01		~/			build	nip
+#host:	redhat_4_64	scxbld64-rh40-01	~/			build	nip
+#host:	redhat_5_32	scxbld-rhe50-01		~/			build	nip
+#host:	redhat_5_64	scxbld64-rh5-02		~/			build	nip
+#host:	redhat_6_32	scxbld-rhel6-01		~/			build	nip
+#host:	redhat_6_64	scxbld64-rhel6-01	~/			build	nip
+#host:	sun_5.09_sparc	scxsun13		~/			build	nip
+#host:	sun_5.10_sparc	ostcbld-sparc10-01	~/			build	nip
+#host:	sun_5.10_x86	scxbld-sol10-02		~/			build	nip
+#host:	sun_5.11_sparc	scxbld-sparc11-01	~/			build	nip
+#host:	sun_5.11_x86	scxbld-sol11-04		~/			build	nip
+#host:	suse_09_32	scxbld-sle9-01		~/			build	nip
+#host:	suse_10_32	suse-devbuild		~/			build	nip
+#host:	suse_10_64	scxom64-sles10-02	~/			build	nip
+#host:	suse_11_32	scxcr-sles11-02		~/			build	nip
+#host:	suse_11_64	scxcr64-sle11-02	~/			build	nip
