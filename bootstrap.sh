@@ -13,9 +13,13 @@ for i in $BASEDIR/*; do
         FILE=`basename $j`
         BASEFILE=$HOME/.$FILE
  
-        if [ -f $BASEFILE ]; then
+        if [ -f $BASEFILE -o -h $BASEFILE ]; then
             echo "Replacing file $BASEFILE"
             rm $BASEFILE
-            ln -s $j $BASEFILE
+        else
+            echo "Creating link $BASEFILE"
+        fi
+
+        ln -s $j $BASEFILE
     done
 done
