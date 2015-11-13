@@ -260,10 +260,10 @@ distribute_startup()
     PROXY_FILENAME=tfprox.passwd.${DOMAIN_DOMAIN}.${DOMAIN_USER}
 
     cp ${TFPROX_PATH}${PROXY_FILENAME} ~/
-    tar cf base-unix.tar \
-	.bash_profile .bashrc .bashrc_cm .emacs .git-completion.bash .pbuild $PROXY_FILENAME \
+    tar chf base-unix.tar \
+	.bash_logout .bash_profile .bashrc .emacs .git-completion.bash .gitignore .pbuild $PROXY_FILENAME \
 	.ssh/id_* .ssh/authorized_keys .wincred \
-	bin/arch
+	bin/git-*.sh
     rm ${PROXY_FILENAME}
    
     # Copy new .bash_profile and .emacs to the systems we know about
