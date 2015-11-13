@@ -66,7 +66,7 @@ fi
 # Some systems have less, some don't - if we don't, just use more
 
 if ( type less > /dev/null 2>&1 ); then
-    export LESS="-Ims"
+    export LESS="-ImRs"
     export PAGER="less"
 else
     alias less="more"
