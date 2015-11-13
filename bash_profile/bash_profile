@@ -85,74 +85,17 @@ else
     alias ls="ls -p"
 fi
 
-# Try and find teamprise (and other things that may vary) ...
+# Try and find teamprise (print warning if not found)
 
-assign_alias()
-{
-    local assigned=0
-    local type=$1
-    local prog=$2
-    shift 2
-
-    if [ $type != 'alias' -a $type != 'path' ]; then
-	echo "Error: assign_alias() called without alias/path designation!"
-	return 1
+if [ -f /opt/teamprise/tf ]; then
+    if [ -d /opt/tfprox/bin ]; then
+        export PATH=/opt/teamprise:opt/tfprox/bin/:$PATH
+    else
+        echo "Error: tfprox does not exist, tf not available" >&2
     fi
-
-    for i in $@; do
-	if [ -e $i ]; then
-	    if [ $type = 'alias' ]; then
-		alias ${prog}=${i}
-		assigned=1
-		break
-	    elif [ $type = 'path' ]; then
-		export PATH=`dirname $i`:$PATH
-		assigned=1
-		break
-	    fi
-	fi
-    done
-
-    if [ $assigned -eq 0 ]; then
-	echo "Error: Unable to set alias for program: ${prog}" >&2
-	return 1
-    fi
-
-    return 0
-}
-
-#	Teamprise CLI should always exist ...
-
-assign_alias path tf \
-	/opt/teamprise/tf \
-	/opt/TEE-CLC-10.0.0/tf
-
-#	Teamprise Explorer only runs on Linux, Solaris Sparc, and AIX
-#	( Note: Not sure if TEE has Teamprise Explorer; disable for now )
-
-TFEXP_SUPPORTED=0
-
-case $(uname -s) in
-    Linux | AIX)
-	TFEXP_SUPPORTED=0
-	;;
-
-    SunOS)
-	[ $(uname -p) = "sparc" ] && TFEXP_SUPPORTED=0
-	;;
-esac
-
-if [ $TFEXP_SUPPORTED -ne 0 ]; then
-    assign_alias alias tfexp \
-	/opt/TeampriseExplorer/TeampriseExplorer \
-	/opt/TeampriseExplorer-3.1.0.8392R/TeampriseExplorer \
-	/opt/TeampriseExplorer-3.0.0.8012R/TeampriseExplorer \
-	/opt/TeampriseExplorer-2.2.0.6068R/TeampriseExplorer
+else
+    echo "Error: tf does not exist, tf not available" >&2
 fi
-
-# Add TFPROXY to the list of stuff on the path
-
-export PATH=/opt/tfprox/bin:${PATH}
 
 # If Rational tools (purify & friends) are around, run initialization files
 # (typically installed in something like:
@@ -264,6 +207,10 @@ fi
 if [ -f /opt/git/bin/git ]; then
     export PATH=/opt/git/bin:${PATH}
     unset SSH_ASKPASS
+fi
+
+if [ -f ~/dev/git/myrepos/mr ]; then
+    export PATH=~/dev/git/myrepos:$PATH
 fi
 
 # Support for rbenv
