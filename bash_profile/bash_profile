@@ -5,6 +5,15 @@
 
 test -s ~/.alias && . ~/.alias || true
 
+# Getting an error when running some X-based programs:
+#
+# Couldn't connect to accessibility bus: Failed to connect to socket ...
+#
+# Apparently forwarding accessibility bus over SSH isn't supported.
+# Squelch the error
+
+export NO_AT_BRIDGE=1
+
 # Teamprise settings
 # Note: assuming domain username is the same as UNIX user;
 #       if that's not the case, edit the line below
