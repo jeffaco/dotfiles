@@ -244,7 +244,7 @@ distribute_host()
 
     if [ "${1}" != "$PRIMARY_SYSTEM" -a "${1}" != "" ]; then
 	echo -n "  Copying to host: ${1} ..."
-	scp -q ~/.bash_profile ~/.bashrc ~/.bashrc_cm ~/.emacs ~/.git-completion.bash ~/.pbuild ${1}:
+	scp -q ~/.bash_profile ~/.bashrc ~/.emacs ~/.git-completion.bash ~/.gitconfig ~/.gitignore ~/.git-credentials ~/.pbuild ${1}:
 	[ $? -eq 0 ] && echo ""
     fi
 }
@@ -270,7 +270,7 @@ distribute_startup()
 
     cp ${TFPROX_PATH}${PROXY_FILENAME} ~/
     tar chf base-unix.tar \
-	.bash_logout .bash_profile .bashrc .emacs .git-completion.bash .gitignore .pbuild $PROXY_FILENAME \
+	.bash_logout .bash_profile .bashrc .emacs .git-completion.bash .gitconfig .gitignore .git-credentials .pbuild $PROXY_FILENAME \
 	.ssh/id_* .ssh/authorized_keys .wincred \
 	bin/git-*.sh
     rm ${PROXY_FILENAME}
