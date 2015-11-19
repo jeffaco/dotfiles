@@ -1,0 +1,21 @@
+[color]
+	ui = true
+[core]
+	editor = emacs -nw
+	excludesfile = ~/.gitignore
+[credential]
+	helper = store
+[push]
+	default = current
+[user]
+	name = Jeff Coffler
+	email = jeff@taltos.com
+[help]
+	autoCorrect = -1
+[log]
+	abbrevCommit = true
+	decorate = short
+[apply]
+	ignoreWhitespace = change
+[am]
+	threeWay = true
