@@ -271,7 +271,7 @@ distribute_startup()
     cp ${TFPROX_PATH}${PROXY_FILENAME} ~/
     tar chf base-unix.tar \
 	.bash_logout .bash_profile .bashrc .emacs .git-completion.bash .gitconfig .gitignore .git-credentials .pbuild $PROXY_FILENAME \
-	.ssh/id_* .ssh/authorized_keys .wincred \
+	.ssh/config .ssh/id_* .ssh/*msft* .ssh/authorized_keys .wincred \
 	bin/git-*.sh
     rm ${PROXY_FILENAME}
    
