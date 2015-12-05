@@ -19,10 +19,14 @@
 	ignoreWhitespace = change
 [am]
 	threeWay = true
+[rerere]
+	enabled = true
+	autoUpdate = true
 [alias]
 	lol = log --oneline --graph
 	nuke = !git clean -fdx && git submodule foreach git clean -fdx
-	smaster = !git submodule foreach git checkout master
+	sdevelop = !git submodule foreach git checkout develop
 	sup = !git submodule foreach git pull
 	sync-branch = remote prune origin
-	sync-master = !git submodule foreach git pull
+	sync-subs = !git submodule foreach git pull
+	rmrbranch = push origin --delete  # <Branch-name> supplied by user
