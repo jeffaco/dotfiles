@@ -15,6 +15,7 @@
 [log]
 	abbrevCommit = true
 	decorate = short
+	date = local
 [apply]
 	ignoreWhitespace = change
 [am]
