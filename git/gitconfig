@@ -27,7 +27,6 @@
 	lol = log --oneline --graph
 	nuke = !git clean -fdx && git submodule foreach git clean -fdx
 	sdevelop = !git submodule foreach git checkout develop
-	sup = !git submodule foreach git pull
-	sync-branch = remote prune origin
-	sync-subs = !git submodule foreach git pull
+	sync-subs = !git submodule foreach git pull && git submodule foreach git remote prune origin
 	rmrbranch = push origin --delete  # <Branch-name> supplied by user
+	rmrprune = remote prune origin
