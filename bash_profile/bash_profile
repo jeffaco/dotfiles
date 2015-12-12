@@ -98,7 +98,7 @@ fi
 
 if [ -f /opt/teamprise/tf ]; then
     if [ -d /opt/tfprox/bin ]; then
-        export PATH=/opt/teamprise:opt/tfprox/bin/:$PATH
+        export PATH=/opt/teamprise:/opt/tfprox/bin/:$PATH
     else
         echo "Error: tfprox does not exist, tf not available" >&2
     fi
