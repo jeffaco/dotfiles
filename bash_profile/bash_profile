@@ -100,10 +100,10 @@ if [ -f /opt/teamprise/tf ]; then
     if [ -d /opt/tfprox/bin ]; then
         export PATH=/opt/teamprise:/opt/tfprox/bin/:$PATH
     else
-        echo "Error: tfprox does not exist, tf not available" >&2
+        echo "Warning: tfprox does not exist, tf not available" >&2
     fi
 else
-    echo "Error: tf does not exist, tf not available" >&2
+    echo "Warning: tf does not exist, tf not available" >&2
 fi
 
 # If Rational tools (purify & friends) are around, run initialization files
