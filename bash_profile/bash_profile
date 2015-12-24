@@ -42,7 +42,7 @@ alias openssl-scx="openssl x509 -noout -in /etc/opt/microsoft/scx/ssl/scx.pem -s
 
 declare -a DEVELOPMENT_LIST SYSTEM_LIST
 
-PRIMARY_SYSTEM=jeffcof64-rhel70-01
+PRIMARY_SYSTEM=jeffcof64-cent7x-01
 
 # Note: We're now picking up the development hosts from the .pbuild file
 
