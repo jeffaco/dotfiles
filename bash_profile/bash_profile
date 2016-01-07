@@ -116,6 +116,8 @@ fi
 
 # Generic settings by O/S
 
+export PATH=/usr/local/bin:$PATH
+
 case `uname -s` in
     AIX)
 	alias ps-scx="ps -ef | grep cim"
@@ -129,15 +131,13 @@ case `uname -s` in
     Darwin)
 	alias ps-scx="ps -ef | grep cim"
 	alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
-
-	export PATH=/usr/local/bin:$PATH
 	;;
 
     HP-UX)
 	alias ps-scx="ps -ef | grep cim"
 	alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
 
-	export PATH=/usr/local/bin:/opt/java1.5/bin:$PATH
+	export PATH=/opt/java1.5/bin:$PATH
 	export UNIX_STD=2003
 	;;
 
@@ -173,7 +173,7 @@ case `uname -s` in
 	    export PATH="$PATH:/opt/solstudio12.2/bin"
 	else
 	    export MANPATH="/usr/share/man:/usr/sfw/man:/opt/sfw/man:/opt/SUNWspro/man:/usr/local/man"
-	    export PATH="$PATH:/usr/local/bin:/usr/sfw/bin:/opt/sfw/bin"
+	    export PATH="$PATH:/usr/sfw/bin:/opt/sfw/bin"
 	    export PATH="$PATH:/opt/SUNWspro/bin:/opt/SUNWspro/prod/bin"
 	fi
 	;;
