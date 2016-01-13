@@ -425,15 +425,15 @@ tfs_internal_get_workspace_map()
 	#
 
 	2012R2_ur-cm-omi)
-	    echo "$/cdm_sfe/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/SCXCM/omi"
+	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/SCXCM/omi"
 	    ;;
 
 	2012R2_ur-cm-pal)
-	    echo "$/cdm_sfe/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/SCXCM/pal"
+	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/SCXCM/pal"
 	    ;;
 
 	2012R2_ur-cm-configmgr)
-	    echo "$/cdm_sfe/Branches/OnPrem/Rel/SC2012R2_URNext/OnPrem/SCXCM/main"
+	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012R2_URNext/OnPrem/SCXCM/main"
 	    ;;
 
 	#
@@ -441,15 +441,15 @@ tfs_internal_get_workspace_map()
 	#
 
 	2012R2_ur-om-omi)
-	    echo "$/cdm_sfe/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/SCXCore/omi"
+	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/SCXCore/omi"
 	    ;;
 
 	2012R2_ur-om-pal)
-	    echo "$/cdm_sfe/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/SCXCore/pal"
+	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/SCXCore/pal"
 	    ;;
 
 	2012R2_ur-om-opsmgr)
-	    echo "$/cdm_sfe/Branches/OnPrem/Rel/SC2012R2_URNext/OnPrem/SCXCore"
+	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012R2_URNext/OnPrem/SCXCore"
 	    ;;
 
 	#
@@ -457,11 +457,11 @@ tfs_internal_get_workspace_map()
 	#
 
 	2012R2_ur-vmm-pal)
-	    echo "$/cdm_sfe/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/VMMXplat/pal"
+	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/VMMXplat/pal"
 	    ;;
 
 	2012R2_ur-vmm-vmm)
-	    echo "$/cdm_sfe/Branches/OnPrem/Rel/SC2012R2_URNext/OnPrem/VMMXplat"
+	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012R2_URNext/OnPrem/VMMXplat"
 	    ;;
 
 	#
@@ -596,9 +596,8 @@ tfs_create_all_workspaces()
 	return 1;
     fi
 
-    DIR_PATHS=(~/dev/work/opsmgr ~/dev/work/oms ~/dev/work/pal ~/dev/work/omi)
-    BRANCH_NAMES=(work-om work-oms work-pal work-omi)
-
+    DIR_PATHS=(~/dev/2012R2_URnext/om/opsmgr ~/dev/2012R2_URnext/om/pal ~/dev/2012R2_URnext/om/omi)
+    BRANCH_NAMES=(2012R2_ur-om-opsmgr 2012R2_ur-om-pal 2012R2_ur-om-omi)
     # Create the directories in case they don't exist
     for i in ${DIR_PATHS[*]}; do
 	mkdir -p ${i}
