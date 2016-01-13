@@ -147,7 +147,7 @@ case `uname -s` in
 	alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
 	export PATH=$PATH:/usr/sbin
 
-	export PS1="\u@\h:\W> "
+	export PS1="\u:\W> "
 	;;
 
     SunOS)
