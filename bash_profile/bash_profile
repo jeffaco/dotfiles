@@ -176,6 +176,8 @@ case `uname -s` in
 	    export PATH="$PATH:/usr/sfw/bin:/opt/sfw/bin"
 	    export PATH="$PATH:/opt/SUNWspro/bin:/opt/SUNWspro/prod/bin"
 	fi
+
+	export PATH="$PATH:/opt/csw/bin"
 	;;
 
     *)
