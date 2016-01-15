@@ -1,3 +1,7 @@
+[am]
+	threeWay = true
+[apply]
+	ignoreWhitespace = change
 [color]
 	ui = true
 [core]
@@ -5,24 +9,23 @@
 	excludesfile = ~/.gitignore
 [credential]
 	helper = store
-[push]
-	default = current
-[user]
-	name = Jeff Coffler
-	email = jeff@taltos.com
 [help]
 	autoCorrect = -1
 [log]
 	abbrevCommit = true
 	decorate = short
 	date = local
-[apply]
-	ignoreWhitespace = change
-[am]
-	threeWay = true
+[push]
+	default = current
 [rerere]
 	enabled = true
 	autoUpdate = true
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[user]
+	name = Jeff Coffler
+	email = jeff@taltos.com
+
 [alias]
 	lol = log --oneline --graph
 	nuke = !git clean -fdx && git submodule foreach git clean -fdx
