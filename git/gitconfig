@@ -32,7 +32,7 @@
 	co-master = !git submodule foreach git checkout master
 	lol = log --oneline --graph
 	nuke = !git clean -fdx && git submodule foreach git clean -fdx
-	sstatus = !git submodule foreach git status
+	sub-status = !git submodule foreach git status
 	sync-subs = !git pull && git remote prune origin && git submodule foreach git pull && git submodule foreach git remote prune origin
 	rmrbranch = push origin --delete  # <Branch-name> supplied by user
 	rmrprune = remote prune origin
