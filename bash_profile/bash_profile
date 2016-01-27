@@ -139,6 +139,33 @@ case `uname -s` in
 
 	export PATH=/opt/java1.5/bin:$PATH
 	export UNIX_STD=2003
+
+        # HP utilities are very sensitive to locale, and some don't work with utf8
+        LANG=C
+        export LANG
+
+        # Be sure we have correct version of 'make'
+        if [ ! -f ~/bin/make ]; then
+            mkdir -p ~/bin
+            ln -s /usr/local/bin/gmake ~/bin/make
+        fi
+        export PATH=~/bin:$PATH
+
+        # Deal with OpenSSL linkages properly with pkg-config
+
+        case `uname -m` in
+            ia64)	# ia64
+		export PKG_CONFIG_PATH=/opt/openssl/lib/hpux32/pkgconfig
+	        ;;
+
+            9000/800)	# pa-risc
+                export PKG_CONFIG_PATH=/opt/openssl/lib/pkgconfig
+                ;;
+
+            *)
+                echo "ERROR: Unknown platform, check output of uname -m"
+                ;;
+        esac
 	;;
 
     Linux)
@@ -177,7 +204,7 @@ case `uname -s` in
 	    export PATH="$PATH:/opt/SUNWspro/bin:/opt/SUNWspro/prod/bin"
 	fi
 
-	export PATH="$PATH:/opt/csw/bin"
+	export PATH="$PATH:/usr/sbin:/opt/csw/bin"
 	;;
 
     *)
