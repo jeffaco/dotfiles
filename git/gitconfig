@@ -29,7 +29,7 @@
 	email = jeff@taltos.com
 
 [alias]
-	co-master = !git submodule foreach git checkout master
+	co-master = !git checkout master && git submodule foreach git checkout master
 	lol = log --oneline --graph
 	nuke = !git clean -fdx && git submodule foreach git clean -fdx
 	sub-status = !git submodule foreach git status
