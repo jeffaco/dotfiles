@@ -126,30 +126,31 @@ host:	cent_5_64	ostcdev64-cent5-01	~/dev/bld-omsagent      oms
 #
 
 #host:	aix_5.3		ostcdev-aix53-01	~/dev/omi		omi
-#host:	aix_6.1		ostcdev-aix61-01	~/dev/omi		omi
-#host:	aix_7.1		ostcdev-aix71-01	~/dev/omi		omi
-#host:	centos_5_32	ostcdev-cent5-01	~/dev/omi		omi
-#host:	centos_5_64	ostcdev64-cent5-01	~/dev/omi		omi
+host:	aix_6.1		ostcdev-aix61-01	~/dev/omi		omi
+host:	aix_7.1		ostcdev-aix71-01	~/dev/omi		omi
+host:	centos_5_32	ostcdev-cent5-01	~/dev/omi		omi
+host:	centos_5_64	ostcdev64-cent5-01	~/dev/omi		omi
 #host:	debian_5_32	scxomd-deb5-01		~/dev/omi		omi
 #host:	debian_5_64	scxomd64-deb5-01	~/dev/omi		omi
 #host:	hp_v2_ia64	ostcdevia-hp23-01	~/dev/omi		omi
 #host:	hp_v2_risc	scxrrhpr14		~/dev/omi		omi
-#host:	hp_v3_ia64	scxhpv3-11		~/dev/omi		omi
-#host:	hp_v3_risc	scxrrhpr12		~/dev/omi		omi
+host:	hp_v3_ia64	scxhpv3-11		~/dev/omi		omi
+host:	hp_v3_risc	scxrrhpr12		~/dev/omi		omi
 #host:	redhat_5_32	ostcdev-rhel5-01	~/dev/omi		omi
 #host:	redhat_5_64	ostcdev64-rhel5-01	~/dev/omi		omi
 #host:	redhat_6_32	ostcdev-rhel6-01	~/dev/omi		omi
 #host:	redhat_6_64	ostcdev64-rhel6-01	~/dev/omi		omi
 #host:	redhat_7_64	ostcdev64-rhel7-10	~/dev/omi		omi
 #host:	sun_5.10_sparc	ostcdev-sparc10-15	~/dev/omi		omi
-#host:	sun_5.10_x86	ostcdev-sol10-01	~/dev/omi		omi
-#host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/omi		omi
-#host:	sun_5.11_x86	ostcdev-sol11-01	~/dev/omi		omi
-#host:	suse_10_32	ostcdev-sles10-01	~/dev/omi		omi
-#host:	suse_10_64	ostcdev64-sles10-01	~/dev/omi		omi
+host:	sun_5.10_x86	ostcdev-sol10-01	~/dev/omi		omi
+host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/omi		omi
+host:	sun_5.11_x86	ostcdev-sol11-01	~/dev/omi		omi
+host:	suse_10_32	ostcdev-sles10-01	~/dev/omi		omi
+host:	suse_10_64	ostcdev64-sles10-01	~/dev/omi		omi
 #host:	suse_11_32	ostcdev-sles11-01	~/dev/omi		omi
 #host:	suse_11_64	ostcdev64-sles11-01	~/dev/omi		omi
 #host:	suse_12_64	dev64-sles12-01		~/dev/omi		omi
+host:	ubuntu_14_64	ostcdev64-ubun14-01	~/dev/omi		omi
 
 host:	centos_7_64_p	jeffcof64-cent7x-01	~/dev/p-repos/omi	omi
 
