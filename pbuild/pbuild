@@ -91,7 +91,7 @@ host:	aix_6.1		ostcdev-aix61-01	~/dev/bld-scxcore	om
 host:	aix_7.1		ostcdev-aix71-01	~/dev/bld-scxcore	om
 host:	hp_v3_ia64	ostcdev-ux31-01		~/dev/bld-scxcore	om
 host:	hp_v3_risc	scxrrhpr12		~/dev/bld-scxcore	om
-#host:	sun_5.10_sparc	ostcdev-sparc10-15	~/dev/bld-scxcore	om
+host:	sun_5.10_sparc	ostcdev-sparc10-16	~/dev/bld-scxcore	om
 host:	sun_5.10_x86	ostcdev-sol10-01	~/dev/bld-scxcore	om
 host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/bld-scxcore	om
 host:	sun_5.11_x86	ostcdev-sol11-01	~/dev/bld-scxcore	om
@@ -141,7 +141,7 @@ host:	hp_v3_risc	scxrrhpr12		~/dev/omi		omi
 #host:	redhat_6_32	ostcdev-rhel6-01	~/dev/omi		omi
 #host:	redhat_6_64	ostcdev64-rhel6-01	~/dev/omi		omi
 #host:	redhat_7_64	ostcdev64-rhel7-10	~/dev/omi		omi
-#host:	sun_5.10_sparc	ostcdev-sparc10-15	~/dev/omi		omi
+host:	sun_5.10_sparc	ostcdev-sparc10-16	~/dev/omi		omi
 host:	sun_5.10_x86	ostcdev-sol10-01	~/dev/omi		omi
 host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/omi		omi
 host:	sun_5.11_x86	ostcdev-sol11-01	~/dev/omi		omi
