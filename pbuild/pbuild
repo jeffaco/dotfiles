@@ -89,6 +89,7 @@ settings: NoDiagnoseErrors,NoCheckValidity,LogfileRename,NoSummaryScreen
 
 host:	aix_6.1		ostcdev-aix61-01	~/dev/bld-scxcore	om
 host:	aix_7.1		ostcdev-aix71-01	~/dev/bld-scxcore	om
+host:	hp_v2_ia64	osdevia-hpux23-01	~/dev/bld-scxcore	om
 host:	hp_v3_ia64	ostcdev-ux31-01		~/dev/bld-scxcore	om
 host:	hp_v3_risc	scxrrhpr12		~/dev/bld-scxcore	om
 host:	sun_5.10_sparc	ostcdev-sparc10-16	~/dev/bld-scxcore	om
@@ -132,7 +133,7 @@ host:	centos_5_32	ostcdev-cent5-01	~/dev/omi		omi
 host:	centos_5_64	ostcdev64-cent5-01	~/dev/omi		omi
 #host:	debian_5_32	scxomd-deb5-01		~/dev/omi		omi
 #host:	debian_5_64	scxomd64-deb5-01	~/dev/omi		omi
-#host:	hp_v2_ia64	ostcdevia-hp23-01	~/dev/omi		omi
+host:	hp_v2_ia64	osdevia-hpux23-01	~/dev/omi		omi
 #host:	hp_v2_risc	scxrrhpr14		~/dev/omi		omi
 host:	hp_v3_ia64	ostcdev-ux31-01		~/dev/omi		omi
 host:	hp_v3_risc	scxrrhpr12		~/dev/omi		omi
