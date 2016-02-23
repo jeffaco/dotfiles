@@ -9,6 +9,10 @@
 	excludesfile = ~/.gitignore
 [credential]
 	helper = store
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
 [help]
 	autoCorrect = -1
 [log]
