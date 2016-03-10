@@ -30,4 +30,4 @@ Finally, to install your dotfiles onto a new system:
 ## Compatibility
 
 The bootstrap utility has been tested to work properly on Linux, IBM
-AIX, HP-UX, and Sun Solaris.
+AIX, HP-UX, Sun Solaris, and Mac OS/X.
