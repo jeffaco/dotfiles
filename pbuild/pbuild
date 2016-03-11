@@ -99,7 +99,7 @@ host:	sun_5.11_x86	ostcdev-sol11-01	~/dev/bld-scxcore	om
 host:	suse_10_32	ostcdev-sles10-01	~/dev/bld-scxcore	om
 host:	suse_10_64	ostcdev64-sles10-01	~/dev/bld-scxcore	om
 
-host:	centos_7_64_p	jeffcof64-cent7x-01	~/dev/p-repos/bld-scxcore  om
+#host:	centos_7_64_p	jeffcof64-cent7x-01	~/dev/p-repos/bld-scxcore  om
 
 #
 # Apache Project
