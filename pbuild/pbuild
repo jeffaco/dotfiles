@@ -109,6 +109,13 @@ host:	suse_10_32	ostcdev-sles10-01	~/dev/bld-apache	apache
 host:	suse_10_64	ostcdev64-sles10-01	~/dev/bld-apache	apache
 
 #
+# DSC Project
+#
+
+host:	suse_10_32	ostcdev-sles10-01	~/dev/bld-dsc		dsc
+host:	suse_10_64	ostcdev64-sles10-01	~/dev/bld-dsc		dsc
+
+#
 # MySQL Project
 #
 
@@ -121,6 +128,12 @@ host:	suse_10_64	ostcdev64-sles10-01	~/dev/bld-mysql		mysql
 
 host:	cent_5_32	ostcdev-cent5-01	~/dev/bld-omsagent	oms
 host:	cent_5_64	ostcdev64-cent5-01	~/dev/bld-omsagent      oms
+
+#
+# Docker Project
+#
+
+host:	suse_10_64	ostcdev64-ubun14-01	~/dev/bld-docker	docker
 
 #
 # OMI Project
