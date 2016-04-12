@@ -90,7 +90,6 @@ settings: NoDiagnoseErrors,NoCheckValidity,LogfileRename,NoSummaryScreen
 host:	aix_6.1		ostcdev-aix61-01	~/dev/bld-scxcore	om
 host:	aix_7.1		ostcdev-aix71-01	~/dev/bld-scxcore	om
 host:	hp_v3_ia64	ostcdev-ux31-01		~/dev/bld-scxcore	om
-host:	hp_v3_risc	scxrrhpr12		~/dev/bld-scxcore	om
 host:	sun_5.10_sparc	ostcdev-sparc10-16	~/dev/bld-scxcore	om
 host:	sun_5.10_x86	ostcdev-sol10-01	~/dev/bld-scxcore	om
 host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/bld-scxcore	om
