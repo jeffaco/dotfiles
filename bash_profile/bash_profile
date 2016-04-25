@@ -345,44 +345,12 @@ tfs_internal_get_workspace_map()
 	# Working branch stuff
 	#
 
-	work-pal)
-	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/Common/SCX/Pal"
-	    ;;
-
-	work-omi)
-	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/Common/SCX/OMI"
-	    ;;
-
-	work-om)
-	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/SCXCore/OnPrem/SCXCore"
-	    ;;
-
-	work-dsc)
-	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/DSC"
-	    ;;
-
-	work-oms)
-	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/omsagent"
-	    ;;
-
-	work-cm)
-	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/SCXCM/OnPrem/SCXCM/main"
-	    ;;
-
 	work-vmm)
 	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/VMMXplat/OnPrem/VMMXplat"
 	    ;;
 
-	work-apache)
-	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/apache-osm"
-	    ;;
-
 	work-filebrowser)
 	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/MessageAnalyzer_FileBrowser"
-	    ;;
-
-	work-mysql)
-	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/MySQL-osm"
 	    ;;
 
 	work-tools)
