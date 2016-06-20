@@ -124,7 +124,7 @@ host:	suse_10_64	ostcdev64-sles10-01	~/dev/bld-mysql		mysql
 # OMS Project
 #
 
-host:	cent_5_32	ostcdev-cent5-01	~/dev/bld-omsagent	oms
+host:	cent_5_32	osdev-cent5-01		~/dev/bld-omsagent	oms
 host:	cent_5_64	osdev64-cent5-01	~/dev/bld-omsagent      oms
 
 #
@@ -140,7 +140,7 @@ host:	suse_10_64	ostcdev64-ubun14-01	~/dev/bld-docker	docker
 #host:	aix_5.3		ostcdev-aix53-01	~/dev/omi		omi
 host:	aix_6.1		osdev-aix61-01		~/dev/omi		omi
 host:	aix_7.1		osdev-aix71-01		~/dev/omi		omi
-host:	centos_5_32	ostcdev-cent5-01	~/dev/omi		omi
+host:	centos_5_32	osdev-cent5-01		~/dev/omi		omi
 host:	centos_5_64	osdev64-cent5-01	~/dev/omi		omi
 #host:	debian_5_32	scxomd-deb5-01		~/dev/omi		omi
 #host:	debian_5_64	scxomd64-deb5-01	~/dev/omi		omi
@@ -148,11 +148,11 @@ host:	centos_5_64	osdev64-cent5-01	~/dev/omi		omi
 #host:	hp_v2_risc	scxrrhpr14		~/dev/omi		omi
 host:	hp_v3_ia64	ostcdev-ux31-01		~/dev/omi		omi
 host:	hp_v3_risc	scxrrhpr12		~/dev/omi		omi
-#host:	redhat_5_32	ostcdev-rhel5-01	~/dev/omi		omi
+host:	redhat_5_32	osdev-rhel5-01		~/dev/omi		omi
 #host:	redhat_5_64	ostcdev64-rhel5-01	~/dev/omi		omi
-#host:	redhat_6_32	ostcdev-rhel6-01	~/dev/omi		omi
+host:	redhat_6_32	osdev-rhel6-01		~/dev/omi		omi
 #host:	redhat_6_64	ostcdev64-rhel6-01	~/dev/omi		omi
-#host:	redhat_7_64	ostcdev64-rhel7-10	~/dev/omi		omi
+host:	redhat_7_64	osdev64-rhel7-01	~/dev/omi		omi
 host:	sun_5.10_sparc	ostcdev-sparc10-16	~/dev/omi		omi
 host:	sun_5.10_x86	ostcdev-sol10-01	~/dev/omi		omi
 host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/omi		omi
