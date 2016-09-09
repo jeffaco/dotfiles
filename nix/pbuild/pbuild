@@ -95,7 +95,7 @@ host:	sun_5.10_x86	osdev-sol10-01		~/dev/bld-scxcore	om
 host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/bld-scxcore	om
 host:	sun_5.11_x86	osdev86-sol11-01	~/dev/bld-scxcore	om
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-scxcore	om
-host:	suse_10_64	ostcdev64-sles10-01	~/dev/bld-scxcore	om
+host:	suse_10_64	osdev64-sles10-01	~/dev/bld-scxcore	om
 
 #host:	centos_7_64_p	jeffcof64-cent7x-01	~/dev/p-repos/bld-scxcore  om
 
@@ -104,7 +104,7 @@ host:	suse_10_64	ostcdev64-sles10-01	~/dev/bld-scxcore	om
 #
 
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-apache	apache
-host:	suse_10_64	ostcdev64-sles10-01	~/dev/bld-apache	apache
+host:	suse_10_64	osdev64-sles10-01	~/dev/bld-apache	apache
 
 
 #
@@ -119,21 +119,21 @@ host:	sun_5.10_x86	osdev-sol10-01		~/dev/bld-scxcm		cm
 host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/bld-scxcm		cm
 host:	sun_5.11_x86	osdev86-sol11-01	~/dev/bld-scxcm		cm
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-scxcm		cm
-host:	suse_10_64	ostcdev64-sles10-01	~/dev/bld-scxcm		cm
+host:	suse_10_64	osdev64-sles10-01	~/dev/bld-scxcm		cm
 
 #
 # DSC Project
 #
 
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-dsc		dsc
-host:	suse_10_64	ostcdev64-sles10-01	~/dev/bld-dsc		dsc
+host:	suse_10_64	osdev64-sles10-01	~/dev/bld-dsc		dsc
 
 #
 # MySQL Project
 #
 
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-mysql		mysql
-host:	suse_10_64	ostcdev64-sles10-01	~/dev/bld-mysql		mysql
+host:	suse_10_64	osdev64-sles10-01	~/dev/bld-mysql		mysql
 
 #
 # OMS Project
@@ -173,7 +173,7 @@ host:	sun_5.10_x86	osdev-sol10-01		~/dev/omi		omi
 host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/omi		omi
 host:	sun_5.11_x86	osdev86-sol11-01	~/dev/omi		omi
 host:	suse_10_32	osdev-sles10-01		~/dev/omi		omi
-host:	suse_10_64	ostcdev64-sles10-01	~/dev/omi		omi
+host:	suse_10_64	osdev64-sles10-01	~/dev/omi		omi
 host:	suse_11_32	osdev-sles11-01		~/dev/omi		omi
 host:	suse_11_64	osdev64-sles11-01	~/dev/omi		omi
 #host:	suse_12_64	dev64-sles12-01		~/dev/omi		omi
