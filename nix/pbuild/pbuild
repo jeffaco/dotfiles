@@ -159,10 +159,7 @@ host:	centos_5_32	osdev-cent5-01		~/dev/omi		omi
 host:	centos_5_64	osdev64-cent5-01	~/dev/omi		omi
 #host:	debian_5_32	scxomd-deb5-01		~/dev/omi		omi
 #host:	debian_5_64	scxomd64-deb5-01	~/dev/omi		omi
-host:	hp_v2_ia64	osdevia-hpux23-01	~/dev/omi		omi
-host:	hp_v2_risc	osdevpa-hpux23-02	~/dev/omi		omi
 host:	hp_v3_ia64	osdevia-hpux31-01	~/dev/omi		omi
-host:	hp_v3_risc	osdevpa-hpux31-01	~/dev/omi		omi
 host:	redhat_5_32	osdev-rhel5-01		~/dev/omi		omi
 #host:	redhat_5_64	ostcdev64-rhel5-01	~/dev/omi		omi
 host:	redhat_6_32	osdev-rhel6-01		~/dev/omi		omi
