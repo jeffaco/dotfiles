@@ -91,7 +91,7 @@ host:	aix_6.1		osdev16-aix61-01	~/dev/bld-scxcore	om
 host:	aix_7.1		osdev16-aix71-01	~/dev/bld-scxcore	om
 host:	hp_v3_ia64	osdevia-hpux31-01	~/dev/bld-scxcore	om
 host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/bld-scxcore	om
-host:	sun_5.10_x86	osdev-sol10-01		~/dev/bld-scxcore	om
+host:	sun_5.10_x86	osdev86-sol10-01	~/dev/bld-scxcore	om
 host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/bld-scxcore	om
 host:	sun_5.11_x86	osdev86-sol11-01	~/dev/bld-scxcore	om
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-scxcore	om
@@ -115,7 +115,7 @@ host:	aix_6.1		osdev16-aix61-01	~/dev/bld-scxcm		cm
 host:	aix_7.1		osdev16-aix71-01	~/dev/bld-scxcm		cm
 host:	hp_v3_ia64	osdevia-hpux31-01	~/dev/bld-scxcm		cm
 host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/bld-scxcm		cm
-host:	sun_5.10_x86	osdev-sol10-01		~/dev/bld-scxcm		cm
+host:	sun_5.10_x86	osdev86-sol10-01	~/dev/bld-scxcm		cm
 host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/bld-scxcm		cm
 host:	sun_5.11_x86	osdev86-sol11-01	~/dev/bld-scxcm		cm
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-scxcm		cm
@@ -152,7 +152,6 @@ host:	suse_10_64	osdev64-ubun14-01	~/dev/bld-docker	docker
 # OMI Project
 #
 
-#host:	aix_5.3		ostcdev-aix53-01	~/dev/omi		omi
 host:	aix_6.1		osdev16-aix61-01	~/dev/omi		omi
 host:	aix_7.1		osdev16-aix71-01	~/dev/omi		omi
 host:	centos_5_32	osdev-cent5-01		~/dev/omi		omi
@@ -167,7 +166,7 @@ host:	redhat_6_32	osdev-rhel6-01		~/dev/omi		omi
 #host:	redhat_6_64	ostcdev64-rhel6-01	~/dev/omi		omi
 host:	redhat_7_64	osdev64-rhel7-01	~/dev/omi		omi
 host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/omi		omi
-host:	sun_5.10_x86	osdev-sol10-01		~/dev/omi		omi
+host:	sun_5.10_x86	osdev86-sol10-01	~/dev/omi		omi
 host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/omi		omi
 host:	sun_5.11_x86	osdev86-sol11-01	~/dev/omi		omi
 host:	suse_10_32	osdev-sles10-01		~/dev/omi		omi
