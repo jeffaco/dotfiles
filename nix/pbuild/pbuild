@@ -175,6 +175,7 @@ host:	suse_11_32	osdev-sles11-01		~/dev/omi		omi
 host:	suse_11_64	osdev64-sles11-01	~/dev/omi		omi
 #host:	suse_12_64	dev64-sles12-01		~/dev/omi		omi
 host:	ubuntu_14_64	osdev64-ubun14-01	~/dev/omi		omi
+host:	ubuntu_16_64	osdev64-ub16-01		~/dev/omi		omi
 
 host:	centos_7_64_p	jeffcof64-cent7x-01	~/dev/p-repos/omi	omi
 
