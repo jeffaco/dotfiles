@@ -156,7 +156,7 @@ host:	aix_6.1		osdev16-aix61-01	~/dev/bld-omi		omi
 host:	aix_7.1		osdev16-aix71-01	~/dev/bld-omi		omi
 host:	centos_5_32	osdev-cent5-01		~/dev/bld-omi		omi
 host:	centos_5_64	osdev64-cent5-01	~/dev/bld-omi		omi
-#host:	debian_5_32	scxomd-deb5-01		~/dev/bld-omi		omi
+#host:	debian_5_32	osdev-deb5-01		~/dev/bld-omi		omi
 #host:	debian_5_64	scxomd64-deb5-01	~/dev/bld-omi		omi
 host:	hp_v3_ia64	osdevia-hpux31-01	~/dev/bld-omi		omi
 host:	mac_10.11	osdev-mac1011-01	~/dev/bld-omi		omi
