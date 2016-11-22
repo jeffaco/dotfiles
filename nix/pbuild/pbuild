@@ -94,6 +94,7 @@ host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/bld-scxcore	om
 host:	sun_5.10_x86	osdev86-sol10-01	~/dev/bld-scxcore	om
 host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/bld-scxcore	om
 host:	sun_5.11_x86	osdev86-sol11-01	~/dev/bld-scxcore	om
+host:	rhel_7.1_ppc	osdevppc-rhel71-05	~/dev/bld-scxcore	om
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-scxcore	om
 host:	suse_10_64	osdev64-sles10-01	~/dev/bld-scxcore	om
 
@@ -169,6 +170,7 @@ host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/bld-omi		omi
 host:	sun_5.10_x86	osdev86-sol10-01	~/dev/bld-omi		omi
 host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/bld-omi		omi
 host:	sun_5.11_x86	osdev86-sol11-01	~/dev/bld-omi		omi
+host:	rhel_7.1_ppc	osdevppc-rhel71-05	~/dev/bld-scxcore	omi
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-omi		omi
 host:	suse_10_64	osdev64-sles10-01	~/dev/bld-omi		omi
 host:	suse_11_32	osdev-sles11-01		~/dev/bld-omi		omi
