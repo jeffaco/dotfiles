@@ -92,7 +92,7 @@ host:	aix_7.1		osdev16-aix71-01	~/dev/bld-scxcore	om
 host:	hp_v3_ia64	osdevia-hpux31-01	~/dev/bld-scxcore	om
 host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/bld-scxcore	om
 host:	sun_5.10_x86	osdev86-sol10-01	~/dev/bld-scxcore	om
-host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/bld-scxcore	om
+host:	sun_5.11_sparc	osdevsp-sol11-02	~/dev/bld-scxcore	om
 host:	sun_5.11_x86	osdev86-sol11-01	~/dev/bld-scxcore	om
 host:	rhel_7.1_ppc	osdevppc-rhel71-05	~/dev/bld-scxcore	om
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-scxcore	om
@@ -117,7 +117,7 @@ host:	aix_7.1		osdev16-aix71-01	~/dev/bld-scxcm		cm
 host:	hp_v3_ia64	osdevia-hpux31-01	~/dev/bld-scxcm		cm
 host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/bld-scxcm		cm
 host:	sun_5.10_x86	osdev86-sol10-01	~/dev/bld-scxcm		cm
-host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/bld-scxcm		cm
+host:	sun_5.11_sparc	osdevsp-sol11-02	~/dev/bld-scxcm		cm
 host:	sun_5.11_x86	osdev86-sol11-01	~/dev/bld-scxcm		cm
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-scxcm		cm
 host:	suse_10_64	osdev64-sles10-01	~/dev/bld-scxcm		cm
@@ -157,6 +157,8 @@ host:	aix_6.1		osdev16-aix61-01	~/dev/bld-omi		omi
 host:	aix_7.1		osdev16-aix71-01	~/dev/bld-omi		omi
 host:	centos_5_32	osdev-cent5-01		~/dev/bld-omi		omi
 host:	centos_5_64	osdev64-cent5-01	~/dev/bld-omi		omi
+host:	centos_6_64	osdev64-cent6-01	~/dev/bld-omi		omi
+host:	centos_7_64	osdev64-cent7-01	~/dev/bld-omi		omi
 #host:	debian_5_32	osdev-deb5-01		~/dev/bld-omi		omi
 #host:	debian_5_64	scxomd64-deb5-01	~/dev/bld-omi		omi
 host:	hp_v3_ia64	osdevia-hpux31-01	~/dev/bld-omi		omi
@@ -168,7 +170,7 @@ host:	redhat_6_32	osdev-rhel6-01		~/dev/bld-omi		omi
 host:	redhat_7_64	osdev64-rhel7-01	~/dev/bld-omi		omi
 host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/bld-omi		omi
 host:	sun_5.10_x86	osdev86-sol10-01	~/dev/bld-omi		omi
-host:	sun_5.11_sparc	ostcdev-sparc11-10	~/dev/bld-omi		omi
+host:	sun_5.11_sparc	osdevsp-sol11-02	~/dev/bld-omi		omi
 host:	sun_5.11_x86	osdev86-sol11-01	~/dev/bld-omi		omi
 host:	rhel_7.1_ppc	osdevppc-rhel71-05	~/dev/bld-scxcore	omi
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-omi		omi
