@@ -88,17 +88,17 @@ settings: NoDiagnoseErrors,NoCheckValidity,LogfileRename,NoSummaryScreen
 # Operations Manager
 
 host:	aix_6.1		osdev16-aix61-01	~/dev/bld-scxcore	om
-host:	aix_7.1		osdev16-aix71-01	~/dev/bld-scxcore	om
+host:	aix_7.1		osd16-aix71-01		~/dev/bld-scxcore	om
 host:	hp_v3_ia64	osdevia-hpux31-01	~/dev/bld-scxcore	om
 host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/bld-scxcore	om
 host:	sun_5.10_x86	osdev86-sol10-01	~/dev/bld-scxcore	om
 host:	sun_5.11_sparc	osdevsp-sol11-02	~/dev/bld-scxcore	om
 host:	sun_5.11_x86	osdev86-sol11-01	~/dev/bld-scxcore	om
-host:	rhel_7.1_ppc	osdevppc-rhel71-01	~/dev/bld-scxcore	om
+host:	rhel_7.1_ppc	osdppc-rh71-01		~/dev/bld-scxcore	om
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-scxcore	om
 host:	suse_10_64	osdev64-sles10-01	~/dev/bld-scxcore	om
 
-#host:	centos_7_64_p	jeffcof64-cent7x-01	~/dev/p-repos/bld-scxcore  om
+#host:	centos_7_64_p	jc64-cent7x-01		~/dev/p-repos/bld-scxcore  om
 
 #
 # Apache Project
@@ -113,7 +113,7 @@ host:	suse_10_64	osdev64-sles10-01	~/dev/bld-apache	apache
 #
 
 host:	aix_6.1		osdev16-aix61-01	~/dev/bld-scxcm		cm
-host:	aix_7.1		osdev16-aix71-01	~/dev/bld-scxcm		cm
+host:	aix_7.1		osd16-aix71-01		~/dev/bld-scxcm		cm
 host:	hp_v3_ia64	osdevia-hpux31-01	~/dev/bld-scxcm		cm
 host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/bld-scxcm		cm
 host:	sun_5.10_x86	osdev86-sol10-01	~/dev/bld-scxcm		cm
@@ -154,7 +154,7 @@ host:	suse_10_64	osdev64-ubun14-01	~/dev/bld-docker	docker
 #
 
 host:	aix_6.1		osdev16-aix61-01	~/dev/bld-omi		omi
-host:	aix_7.1		osdev16-aix71-01	~/dev/bld-omi		omi
+host:	aix_7.1		osd16-aix71-01		~/dev/bld-omi		omi
 host:	centos_5_32	osdev-cent5-01		~/dev/bld-omi		omi
 host:	centos_5_64	osdev64-cent5-01	~/dev/bld-omi		omi
 host:	centos_6_64	osdev64-cent61-01	~/dev/bld-omi		omi
@@ -163,13 +163,13 @@ host:	centos_7_64	osdev64-cent7-01	~/dev/bld-omi		omi
 #host:	debian_5_32	osdev-deb5-01		~/dev/bld-omi		omi
 #host:	debian_5_64	scxomd64-deb5-01	~/dev/bld-omi		omi
 host:	hp_v3_ia64	osdevia-hpux31-01	~/dev/bld-omi		omi
-host:	mac_10.11	osdev-mac1011-01	~/dev/bld-omi		omi
+host:	mac_10.11	osdev-mac1011-02	~/dev/bld-omi		omi
 host:	redhat_5_32	osdev-rhel5-01		~/dev/bld-omi		omi
 #host:	redhat_5_64	ostcdev64-rhel5-01	~/dev/bld-omi		omi
 host:	redhat_6_32	osdev-rhel6-01		~/dev/bld-omi		omi
 #host:	redhat_6_64	ostcdev64-rhel6-01	~/dev/bld-omi		omi
 host:	redhat_7_64	osdev64-rhel7-01	~/dev/bld-omi		omi
-host:	redhat_7.1_ppc	osdevppc-rhel71-01	~/dev/bld-omi		omi
+host:	redhat_7.1_ppc	osdppc-rh71-01		~/dev/bld-omi		omi
 host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/bld-omi		omi
 host:	sun_5.10_x86	osdev86-sol10-01	~/dev/bld-omi		omi
 host:	sun_5.11_sparc	osdevsp-sol11-02	~/dev/bld-omi		omi
@@ -182,10 +182,10 @@ host:	suse_11_64	osdev64-sles11-01	~/dev/bld-omi		omi
 host:	ubuntu_14_64	osdev64-ubun14-01	~/dev/bld-omi		omi
 host:	ubuntu_16_64	osdev64-ub16-01		~/dev/bld-omi		omi
 
-host:	centos_7_64_p	jeffcof64-cent7x-01	~/dev/p-repos/bld-omi	omi
+host:	centos_7_64_p	jc64-cent7x-01		~/dev/p-repos/bld-omi	omi
 
 #
 # PAL Project
 #
 
-host:	centos_7_64_p	jeffcof64-cent7x-01	~/dev/pal		pal
+host:	centos_7_64_p	jc64-cent7x-01		~/dev/pal		pal
