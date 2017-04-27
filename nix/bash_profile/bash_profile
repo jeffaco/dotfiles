@@ -24,9 +24,8 @@ export TF_DIFF_COMMAND='diff -u --label "%6 / %7" "%1" "%2"'
 export TF_AUTO_SAVE_CREDENTIALS=1
 
 # Include GIT auto-completion script if it exists
-# Note: This sort of thing is included in older systems
-# Comment out unless we know we need it or can decide when to include
 # [ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
+[ -f /etc/bash_completion.d/git ] && source /etc/bash_completion.d/git
 
 #
 # Set up common aliases and enviornment variables
