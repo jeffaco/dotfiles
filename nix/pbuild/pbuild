@@ -163,12 +163,12 @@ host:	centos_7_64	osdev64-cent7-01	~/dev/bld-omi		omi
 #host:	debian_5_32	osdev-deb5-01		~/dev/bld-omi		omi
 #host:	debian_5_64	scxomd64-deb5-01	~/dev/bld-omi		omi
 host:	hp_v3_ia64	osdevia-hpux31-01	~/dev/bld-omi		omi
-host:	mac_10.11	osdev-mac1011-02	~/dev/bld-omi		omi
+#host:	mac_10.11	osdev-mac1011-02	~/dev/bld-omi		omi
 host:	redhat_5_32	osdev-rhel5-01		~/dev/bld-omi		omi
 #host:	redhat_5_64	ostcdev64-rhel5-01	~/dev/bld-omi		omi
 host:	redhat_6_32	osdev-rhel6-01		~/dev/bld-omi		omi
 #host:	redhat_6_64	ostcdev64-rhel6-01	~/dev/bld-omi		omi
-host:	redhat_7_64	osdev64-rhel7-01	~/dev/bld-omi		omi
+host:	redhat_7_64	osd64-rh7-01		~/dev/bld-omi		omi
 host:	redhat_7.1_ppc	osdppc-rh71-01		~/dev/bld-omi		omi
 host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/bld-omi		omi
 host:	sun_5.10_x86	osdev86-sol10-01	~/dev/bld-omi		omi
@@ -180,7 +180,7 @@ host:	suse_11_32	osdev-sles11-01		~/dev/bld-omi		omi
 host:	suse_11_64	osdev64-sles11-01	~/dev/bld-omi		omi
 #host:	suse_12_64	dev64-sles12-01		~/dev/bld-omi		omi
 host:	ubuntu_14_64	osdev64-ubun14-01	~/dev/bld-omi		omi
-host:	ubuntu_16_64	osdev64-ub16-01		~/dev/bld-omi		omi
+host:	ubuntu_16_64	osd64-ub16-01		~/dev/bld-omi		omi
 
 host:	centos_7_64_p	jc64-cent7x-01		~/dev/p-repos/bld-omi	omi
 
