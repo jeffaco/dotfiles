@@ -7,3 +7,6 @@
 .DS_Store
 .Trashes
 .Spotlight-V100
+
+# Ignore Python version files from pyenv
+.python-version
