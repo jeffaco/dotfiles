@@ -256,8 +256,35 @@ if [ -d ~/.rbenv ]; then
     eval "$(rbenv init -)"
 fi
 
-
 export PATH=.:~/bin:${PATH}
+
+#
+# cmake support
+#
+
+# We may have cmake3, but not cmake; if so, set alias
+
+if type cmake3 > /dev/null 2> /dev/null; then
+   alias cmake=cmake3
+fi
+
+# If ccache is installed, then add it to head of path
+# (easiest way for cmake to use it without command line options)
+
+if [ -d /usr/lib64/ccache ]; then
+   export PATH="/usr/lib64/ccache:$PATH"
+fi
+
+#
+# pyenv support
+#
+
+if [ -d ~/.pyenv ]; then
+   export PATH="/home/jeffcof/.pyenv/bin:$PATH"
+   eval "$(pyenv init -)"
+   eval "$(pyenv virtualenv-init -)"
+fi
+
 
 #
 # Functions
