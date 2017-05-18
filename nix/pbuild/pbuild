@@ -163,7 +163,7 @@ host:	centos_7_64	osdev64-cent7-01	~/dev/bld-omi		omi
 #host:	debian_5_32	osdev-deb5-01		~/dev/bld-omi		omi
 #host:	debian_5_64	scxomd64-deb5-01	~/dev/bld-omi		omi
 host:	hp_v3_ia64	osdevia-hpux31-01	~/dev/bld-omi		omi
-#host:	mac_10.11	osdev-mac1011-02	~/dev/bld-omi		omi
+host:	mac_10.11	osdev-mac1011-02	~/dev/bld-omi		omi
 host:	redhat_5_32	osdev-rhel5-01		~/dev/bld-omi		omi
 #host:	redhat_5_64	ostcdev64-rhel5-01	~/dev/bld-omi		omi
 host:	redhat_6_32	osdev-rhel6-01		~/dev/bld-omi		omi
