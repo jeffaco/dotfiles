@@ -91,12 +91,12 @@ host:	aix_6.1		osdev16-aix61-01	~/dev/bld-scxcore	om
 host:	aix_7.1		osd16-aix71-01		~/dev/bld-scxcore	om
 host:	hp_v3_ia64	osdevia-hpux31-01	~/dev/bld-scxcore	om
 host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/bld-scxcore	om
-host:	sun_5.10_x86	osdev86-sol10-01	~/dev/bld-scxcore	om
+host:	sun_5.10_x86	osd86-sol10-01		~/dev/bld-scxcore	om
 host:	sun_5.11_sparc	osdevsp-sol11-02	~/dev/bld-scxcore	om
 host:	sun_5.11_x86	osdev86-sol11-01	~/dev/bld-scxcore	om
 host:	rhel_7.1_ppc	osdppc-rh71-01		~/dev/bld-scxcore	om
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-scxcore	om
-host:	suse_10_64	osdev64-sles10-01	~/dev/bld-scxcore	om
+host:	suse_10_64	osd64-sls10-01		~/dev/bld-scxcore	om
 
 #host:	centos_7_64_p	jc64-cent7x-01		~/dev/p-repos/bld-scxcore  om
 
@@ -105,7 +105,7 @@ host:	suse_10_64	osdev64-sles10-01	~/dev/bld-scxcore	om
 #
 
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-apache	apache
-host:	suse_10_64	osdev64-sles10-01	~/dev/bld-apache	apache
+host:	suse_10_64	osd64-sls10-01		~/dev/bld-apache	apache
 
 
 #
@@ -116,25 +116,25 @@ host:	aix_6.1		osdev16-aix61-01	~/dev/bld-scxcm		cm
 host:	aix_7.1		osd16-aix71-01		~/dev/bld-scxcm		cm
 host:	hp_v3_ia64	osdevia-hpux31-01	~/dev/bld-scxcm		cm
 host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/bld-scxcm		cm
-host:	sun_5.10_x86	osdev86-sol10-01	~/dev/bld-scxcm		cm
+host:	sun_5.10_x86	osd86-sol10-01		~/dev/bld-scxcm		cm
 host:	sun_5.11_sparc	osdevsp-sol11-02	~/dev/bld-scxcm		cm
 host:	sun_5.11_x86	osdev86-sol11-01	~/dev/bld-scxcm		cm
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-scxcm		cm
-host:	suse_10_64	osdev64-sles10-01	~/dev/bld-scxcm		cm
+host:	suse_10_64	osd64-sls10-01		~/dev/bld-scxcm		cm
 
 #
 # DSC Project
 #
 
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-dsc		dsc
-host:	suse_10_64	osdev64-sles10-01	~/dev/bld-dsc		dsc
+host:	suse_10_64	osd64-sls10-01		~/dev/bld-dsc		dsc
 
 #
 # MySQL Project
 #
 
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-mysql		mysql
-host:	suse_10_64	osdev64-sles10-01	~/dev/bld-mysql		mysql
+host:	suse_10_64	osd64-sls10-01		~/dev/bld-mysql		mysql
 
 #
 # OMS Project
@@ -171,13 +171,13 @@ host:	redhat_6_32	osdev-rhel6-01		~/dev/bld-omi		omi
 host:	redhat_7_64	osd64-rh7-01		~/dev/bld-omi		omi
 host:	redhat_7.1_ppc	osdppc-rh71-01		~/dev/bld-omi		omi
 host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/bld-omi		omi
-host:	sun_5.10_x86	osdev86-sol10-01	~/dev/bld-omi		omi
+host:	sun_5.10_x86	osd86-sol10-01		~/dev/bld-omi		omi
 host:	sun_5.11_sparc	osdevsp-sol11-02	~/dev/bld-omi		omi
 host:	sun_5.11_x86	osdev86-sol11-01	~/dev/bld-omi		omi
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-omi		omi
-host:	suse_10_64	osdev64-sles10-01	~/dev/bld-omi		omi
+host:	suse_10_64	osd64-sls10-01		~/dev/bld-omi		omi
 host:	suse_11_32	osdev-sles11-01		~/dev/bld-omi		omi
-host:	suse_11_64	osdev64-sles11-01	~/dev/bld-omi		omi
+host:	suse_11_64	osd64-sls11-01		~/dev/bld-omi		omi
 #host:	suse_12_64	dev64-sles12-01		~/dev/bld-omi		omi
 host:	ubuntu_14_64	osd64-ub14-01		~/dev/bld-omi		omi
 host:	ubuntu_16_64	osd64-ub16-01		~/dev/bld-omi		omi
