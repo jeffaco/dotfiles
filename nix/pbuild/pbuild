@@ -93,7 +93,7 @@ host:	hp_v3_ia64	osdevia-hpux31-01	~/dev/bld-scxcore	om
 host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/bld-scxcore	om
 host:	sun_5.10_x86	osd86-sol10-01		~/dev/bld-scxcore	om
 host:	sun_5.11_sparc	osdevsp-sol11-02	~/dev/bld-scxcore	om
-host:	sun_5.11_x86	osdev86-sol11-01	~/dev/bld-scxcore	om
+host:	sun_5.11_x86	osd86-sol11-01		~/dev/bld-scxcore	om
 host:	rhel_7.1_ppc	osdppc-rh71-01		~/dev/bld-scxcore	om
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-scxcore	om
 host:	suse_10_64	osd64-sls10-01		~/dev/bld-scxcore	om
@@ -118,7 +118,7 @@ host:	hp_v3_ia64	osdevia-hpux31-01	~/dev/bld-scxcm		cm
 host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/bld-scxcm		cm
 host:	sun_5.10_x86	osd86-sol10-01		~/dev/bld-scxcm		cm
 host:	sun_5.11_sparc	osdevsp-sol11-02	~/dev/bld-scxcm		cm
-host:	sun_5.11_x86	osdev86-sol11-01	~/dev/bld-scxcm		cm
+host:	sun_5.11_x86	osd86-sol11-01		~/dev/bld-scxcm		cm
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-scxcm		cm
 host:	suse_10_64	osd64-sls10-01		~/dev/bld-scxcm		cm
 
@@ -140,7 +140,7 @@ host:	suse_10_64	osd64-sls10-01		~/dev/bld-mysql		mysql
 # OMS Project
 #
 
-host:	cent_5_32	osdev-cent5-01		~/dev/bld-omsagent	oms
+host:	cent_5_32	osd-ct5-01		~/dev/bld-omsagent	oms
 host:	cent_5_64	osdev64-cent5-01	~/dev/bld-omsagent      oms
 
 #
@@ -155,7 +155,7 @@ host:	suse_10_64	osd64-ub14-01		~/dev/bld-docker	docker
 
 host:	aix_6.1		osd16-aix61-01		~/dev/bld-omi		omi
 host:	aix_7.1		osd16-aix71-01		~/dev/bld-omi		omi
-host:	centos_5_32	osdev-cent5-01		~/dev/bld-omi		omi
+host:	centos_5_32	osd-ct5-01		~/dev/bld-omi		omi
 host:	centos_5_64	osdev64-cent5-01	~/dev/bld-omi		omi
 host:	centos_6_64	osdev64-cent61-01	~/dev/bld-omi		omi
 host:	centos_7_64	osd64-ct7-01		~/dev/bld-omi		omi
@@ -164,16 +164,16 @@ host:	centos_7_64	osd64-ct7-01		~/dev/bld-omi		omi
 #host:	debian_5_64	scxomd64-deb5-01	~/dev/bld-omi		omi
 host:	hp_v3_ia64	osdevia-hpux31-01	~/dev/bld-omi		omi
 host:	mac_10.11	osd-mac1012-02		~/dev/bld-omi		omi
-host:	redhat_5_32	osdev-rhel5-01		~/dev/bld-omi		omi
+host:	redhat_5_32	osd-rh5-01		~/dev/bld-omi		omi
 #host:	redhat_5_64	ostcdev64-rhel5-01	~/dev/bld-omi		omi
-host:	redhat_6_32	osdev-rhel6-01		~/dev/bld-omi		omi
+host:	redhat_6_32	osd-rh6-01		~/dev/bld-omi		omi
 #host:	redhat_6_64	ostcdev64-rhel6-01	~/dev/bld-omi		omi
 host:	redhat_7_64	osd64-rh7-01		~/dev/bld-omi		omi
 host:	redhat_7.1_ppc	osdppc-rh71-01		~/dev/bld-omi		omi
 host:	sun_5.10_sparc	osdevsp-sol10-01	~/dev/bld-omi		omi
 host:	sun_5.10_x86	osd86-sol10-01		~/dev/bld-omi		omi
 host:	sun_5.11_sparc	osdevsp-sol11-02	~/dev/bld-omi		omi
-host:	sun_5.11_x86	osdev86-sol11-01	~/dev/bld-omi		omi
+host:	sun_5.11_x86	osd86-sol11-01		~/dev/bld-omi		omi
 host:	suse_10_32	osdev-sles10-01		~/dev/bld-omi		omi
 host:	suse_10_64	osd64-sls10-01		~/dev/bld-omi		omi
 host:	suse_11_32	osdev-sles11-01		~/dev/bld-omi		omi
