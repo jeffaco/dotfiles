@@ -141,7 +141,7 @@ host:	suse_10_64	osd64-sls10-01		~/dev/bld-mysql		mysql
 #
 
 host:	cent_5_32	osd-ct5-01		~/dev/bld-omsagent	oms
-host:	cent_5_64	osdev64-cent5-01	~/dev/bld-omsagent      oms
+host:	cent_5_64	osd64-ct5-01		~/dev/bld-omsagent      oms
 
 #
 # Docker Project
@@ -156,8 +156,8 @@ host:	suse_10_64	osd64-ub14-01		~/dev/bld-docker	docker
 host:	aix_6.1		osd16-aix61-01		~/dev/bld-omi		omi
 host:	aix_7.1		osd16-aix71-01		~/dev/bld-omi		omi
 host:	centos_5_32	osd-ct5-01		~/dev/bld-omi		omi
-host:	centos_5_64	osdev64-cent5-01	~/dev/bld-omi		omi
-host:	centos_6_64	osdev64-cent61-01	~/dev/bld-omi		omi
+host:	centos_5_64	osd64-ct5-01		~/dev/bld-omi		omi
+host:	centos_6_64	osd64-ct61-01		~/dev/bld-omi		omi
 host:	centos_7_64	osd64-ct7-01		~/dev/bld-omi		omi
 #host:	centos_7.3_64	osdev64-cent73-01	~/dev/bld-omi		omi
 #host:	debian_5_32	osdev-deb5-01		~/dev/bld-omi		omi
