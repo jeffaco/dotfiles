@@ -235,6 +235,15 @@ if [ -x /opt/tfprox/bin/tfprox ]; then
     fi
 fi
 
+# Deal with "go" if it's installed
+
+if [ -d /usr/local/go ]; then
+   export PATH=$PATH:/usr/local/go/bin
+
+   export GOPATH=$HOME/go
+   export PATH=$PATH:$GOPATH/bin
+fi
+
 # Include environment for ConfigMgr project if it exists
 
 # [ -f ~/.bashrc_cm ] && source ~/.bashrc_cm
@@ -261,6 +270,12 @@ export PATH=.:~/bin:${PATH}
 #
 # cmake support
 #
+
+# First see if we have /opt/cmake; if so, that overrules all
+
+if [ -d /opt/cmake/bin ]; then
+   export PATH=/opt/cmake/bin:$PATH
+fi
 
 # We may have cmake3, but not cmake; if so, set alias
 
