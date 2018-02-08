@@ -20,8 +20,6 @@ export NO_AT_BRIDGE=1
 
 WINDOWS_DOMAIN=REDMOND
 WINDOWS_USERNAME=$USER
-export TF_DIFF_COMMAND='diff -u --label "%6 / %7" "%1" "%2"'
-export TF_AUTO_SAVE_CREDENTIALS=1
 
 # Include GIT auto-completion script if it exists
 # [ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
@@ -45,12 +43,14 @@ PRIMARY_SYSTEM=jc64-cent7x-01
 
 # Note: We're now picking up the development hosts from the .pbuild file
 
-# DEVELOPMENT_LIST=(`egrep ^host: ~/.pbuild | egrep -e '[[:space:]]main$' -e '[[:space:]]main[[:space:]]' | awk '{print $3}'`)
-DEVELOPMENT_LIST=( `egrep ^host: ~/.pbuild | awk '{print $3}' | sort -u` )
-SYSTEM_LIST=( ${DEVELOPMENT_LIST[*]}
-    ostcdev-cent6-10 ostcdev64-cent6-01
-)
-BUILD_LIST=( `egrep ^host: ~/.pbuild | egrep 'build.*nip$' | awk '{print $3}' | sort -u` )
+if [ -f ~/.pbuild ]; then
+    # DEVELOPMENT_LIST=(`egrep ^host: ~/.pbuild | egrep -e '[[:space:]]main$' -e '[[:space:]]main[[:space:]]' | awk '{print $3}'`)
+    DEVELOPMENT_LIST=( `egrep ^host: ~/.pbuild | awk '{print $3}' | sort -u` )
+    SYSTEM_LIST=( ${DEVELOPMENT_LIST[*]}
+        ostcdev-cent6-10 ostcdev64-cent6-01
+    )
+    BUILD_LIST=( `egrep ^host: ~/.pbuild | egrep 'build.*nip$' | awk '{print $3}' | sort -u` )
+fi
 
 # Random other aliases and enviornment variables
 
@@ -93,16 +93,27 @@ else
     alias ls="ls -p"
 fi
 
-# Try and find teamprise (print warning if not found)
+# Try and find teamprise (if found, set it up)
 
 if [ -f /opt/teamprise/tf ]; then
+    export TF_DIFF_COMMAND='diff -u --label "%6 / %7" "%1" "%2"'
+    export TF_AUTO_SAVE_CREDENTIALS=1
+
     if [ -d /opt/tfprox/bin ]; then
         export PATH=/opt/teamprise:/opt/tfprox/bin/:$PATH
     else
         echo "Warning: tfprox does not exist, tf not available" >&2
     fi
-else
-    echo "Warning: tf does not exist, tf not available" >&2
+
+    # Check if tfproxy is running
+    if [ -x /opt/tfprox/bin/tfprox ]; then
+        if ! ps -aef | grep -i tfprox | grep -v grep  > /dev/null; then
+	    echo "Starting tfproxy..."
+	    if ! sudo /opt/tfprox/bin/tfprox -b; then
+	        echo "Fatal error:  Unable to start tfproxy..."
+	    fi
+        fi
+    fi
 fi
 
 # If Rational tools (purify & friends) are around, run initialization files
@@ -225,16 +236,6 @@ esac
 
 unset S_HOSTNAME
 
-# Check if tfproxy is running
-if [ -x /opt/tfprox/bin/tfprox ]; then
-    if ! ps -aef | grep -i tfprox | grep -v grep  > /dev/null; then
-	echo "Starting tfproxy..."
-	if ! sudo /opt/tfprox/bin/tfprox -b; then
-	    echo "Fatal error:  Unable to start tfproxy..."
-	fi
-    fi
-fi
-
 # Deal with "go" if it's installed
 
 if [ -d /usr/local/go ]; then
@@ -300,10 +301,20 @@ if [ -d ~/.pyenv ]; then
    eval "$(pyenv virtualenv-init -)"
 fi
 
+#
+# Support for building mesos
+#
+
+if [ -d /opt/mesos-format/bin ]; then
+   export PATH=$PATH:/opt/mesos-format/bin
+fi
+
 
 #
 # Functions
 #
+
+if [ -f ~/.pbuild ]; then
 
 distribute_host()
 {
@@ -353,9 +364,13 @@ distribute_startup()
     return 0;
 }
 
+fi
+
 # Function: tfs_activate_license
 #
 # Activate a license for SCX development
+
+if [ -f /opt/teamprise/tf ]; then
 
 tfs_activate_license()
 {
@@ -769,6 +784,8 @@ tfs_rebuild()
 	echo "Fatal error:  Unable to start tfproxy..."
     fi
 }
+
+fi
 
 # Function: global_find
 #
