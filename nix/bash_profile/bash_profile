@@ -305,10 +305,13 @@ fi
 # Support for building mesos
 #
 
-if [ -d /opt/mesos-format/bin ]; then
-   export PATH=$PATH:/opt/mesos-format/bin
+if [ -d /opt/mesos-format/2017-11-17/bin ]; then
+   export PATH=$PATH:/opt/mesos-format/2017-11-17/bin
 fi
 
+if [ -d /opt/mesos-tidy/2017-11-17/bin ]; then
+   export PATH=$PATH:/opt/mesos-tidy/2017-11-17/bin
+fi
 
 #
 # Functions
