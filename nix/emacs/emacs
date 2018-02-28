@@ -111,94 +111,9 @@
   (interactive)
   (revert-buffer nil t))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; T F S  S U P P O R T 
-;; Quick and dirty by Andreas Lalloo 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Checkout
-(defun tf-checkout()
-  "Check out the file in the current buffer from TFS"
-  (interactive)
-  (shell-command-to-string (concat "tf checkout " buffer-file-name))
-  (revert-buffer nil t))
-
-;; Undo (no confirmation!)
-(defun tf-undo()
-  "Undo the changes of the file in current buffer"
-  (interactive)
-  (shell-command-to-string (concat "tf undo " buffer-file-name))
-  (revert-buffer nil t))
-
-(defun tf-diff-changes()
-  "Diff changes from base version"
-  (interactive)
-  (let* ((filename-full buffer-file-name)
-		 (filename (file-name-nondirectory buffer-file-name))
-		 (filename-ns (file-name-sans-extension filename))
-		 (filesuffix (file-name-extension filename t))
-		 (baseversion (tf-get-baseversion filename-full))
-		 (basefilename (concat filename-ns "." baseversion filesuffix "~")))
-	;; Get the base version
-	(message (concat "Getting base version (" baseversion ") of " filename))
-	(shell-command-to-string (concat "tf print -version:" baseversion " " filename-full " > " basefilename))
-	;; Diff 
-	(ediff basefilename filename-full)))
-
-(defun tf-diff-head()
-  "Diff changes from head version"
-  (interactive)
-  (let* ((filename-full buffer-file-name)
-		 (filename (file-name-nondirectory buffer-file-name))
-		 (filename-ns (file-name-sans-extension filename))
-		 (filesuffix (file-name-extension filename t))
-		 (headfilename (concat filename-ns ".head" filesuffix "~")))
-	;; Get head version
-	(message (concat "Gettting head version of " filename))
-	(shell-command-to-string (concat "tf print " filename-full " > " headfilename))
-	;; Diff
-	(ediff headfilename filename-full)))
-
-;; Handle the lousy merge tool in Teamprise
-(defun tf-merge()
-  "Save the modified file as a backup, undo edit, get server version, tf-edit it and open files in ediff."
-  (interactive)
-  (let* ((filename-full buffer-file-name)
-		 (filename (file-name-nondirectory buffer-file-name))
-		 (filename-ns (file-name-sans-extension filename))
-		 (filesuffix (file-name-extension filename t))
-		 (baseversion (tf-get-baseversion filename-full))
-		 (localchfilename (concat filename-ns ".localchanges" filesuffix "~"))
-		 (headfilename (concat filename-ns ".head" filesuffix "~"))
-		 (basefilename (concat filename-ns "." baseversion filesuffix "~")))
-	(message (concat "Saving backup as file " localchfilename))
-	(write-file localchfilename)
-	;; Get the base version
-	(message (concat "Getting base version (" baseversion ") of " filename))
-	(shell-command-to-string (concat "tf print -version:" baseversion " " filename-full " > " basefilename))
-	;; Get head version
-	(message (concat "Gettting head version of " filename))
-	(shell-command-to-string (concat "tf print " filename-full " > " headfilename))
-	;; Get head version in ordinary file
-	;;(message "Getting latest version")
-	;;(shell-command-to-string (concat "tf get " filename-full))
-	(message (concat "Undoing changes to " filename))
-	(shell-command-to-string (concat "tf undo " filename-full))
-	(message (concat "Getting latest version of " filename))
-	(shell-command-to-string (concat "tf get " filename-full)) ; Since this seems to be required the get first operation could be removed, of course. Some day.
-	(message (concat "Checking out " filename " again"))
-	(shell-command-to-string (concat "tf checkout " filename-full))
-	;;(emerge-files-with-ancestor 4 localchfilename headfilename basefilename filename-full)
-	(ediff-merge-files-with-ancestor localchfilename headfilename basefilename nil filename-full)))
-
-
-(defun tf-get-baseversion(srcfile)
-  "Retrieve the changeset number of the file supplied as argument."
-  (interactive "f")
-  (message "Looking up base version number")
-  (shell-command-to-string 
-   (concat "tf properties " srcfile "|egrep \"Changeset:   ([[:digit:]]+)\" | awk '{printf \"%d\", $2}'")))
+;; Support for Mesos (Clang formatting rules)
+(load "/opt/mesos-format/2017-11-17/share/clang/clang-format.el")
+(global-set-key [C-M-tab] 'clang-format-region)
 
 ;; 
 ;; Query-replace - inserting newline: 
