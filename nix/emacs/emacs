@@ -21,13 +21,14 @@
  '(delete-selection-mode nil nil (delsel))
  '(global-font-lock-mode t nil (font-lock))
  '(scroll-bar-mode (quote right))
- '(show-paren-mode t nil (paren))
- '(transient-mark-mode t))
+ '(show-paren-mode t nil (paren)))
 
 (custom-set-faces
   ;; custom-set-faces was added by Custom -- don't edit or cut/paste it!
   ;; Your init file should contain only one such instance.
  )
+
+(transient-mark-mode 1)
 
 (require 'cc-mode)
 (add-hook 'c-mode-common-hook
@@ -113,7 +114,7 @@
 
 ;; Support for Mesos (Clang formatting rules)
 (load "/opt/mesos-format/2017-11-17/share/clang/clang-format.el")
-(global-set-key [C-M-tab] 'clang-format-region)
+(global-set-key (kbd "C-c m") 'clang-format-region)
 
 ;; 
 ;; Query-replace - inserting newline: 
