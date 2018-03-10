@@ -1,0 +1,12 @@
+# Global GIT ignore file
+
+# Editor backup files
+*~
+
+# Obvious Mac OS/X stuff
+.DS_Store
+.Trashes
+.Spotlight-V100
+
+# Ignore Python version files from pyenv
+.python-version

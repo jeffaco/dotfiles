@@ -1,0 +1,38 @@
+[am]
+	threeWay = true
+[apply]
+	ignoreWhitespace = change
+[color]
+	ui = true
+[core]
+	editor = emacs -nw
+	excludesfile = ~/.gitignore
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[help]
+	autoCorrect = -1
+[log]
+	abbrevCommit = true
+	decorate = short
+	date = local
+[pull]
+	ff = only
+[push]
+	default = current
+[rerere]
+	enabled = true
+	autoUpdate = true
+[user]
+	name = Jeff Coffler
+	email = jeff@taltos.com
+
+[alias]
+	co-master = !git checkout master && git submodule foreach git checkout master
+	lol = log --oneline --graph
+	nuke = !git clean -fdx && git submodule foreach git clean -fdx
+	sub-status = !git submodule foreach git status
+	sync-subs = !git pull && git remote prune origin && git submodule foreach git pull && git submodule foreach git remote prune origin
+	rmrbranch = push origin --delete  # <Branch-name> supplied by user
+	rmrprune = remote prune origin
