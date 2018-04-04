@@ -14,50 +14,11 @@ test -s ~/.alias && . ~/.alias || true
 
 export NO_AT_BRIDGE=1
 
-# Teamprise settings
-# Note: assuming domain username is the same as UNIX user;
-#       if that's not the case, edit the line below
-
-WINDOWS_DOMAIN=REDMOND
-WINDOWS_USERNAME=$USER
-
-# Include GIT auto-completion script if it exists
-# [ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
-[ -f /etc/bash_completion.d/git ] && source /etc/bash_completion.d/git
-
 #
 # Set up common aliases and enviornment variables
 #
 
-alias mount-ostcdata="sudo mkdir /mnt/ostcdata; sudo mount -o vers=3 ostcrrhv02:/ostcdata /mnt/ostcdata"
-alias openssl-scx="openssl x509 -noout -in /etc/opt/microsoft/scx/ssl/scx.pem -subject -issuer"
-
-# List of systems used for development purposes
-#   PRIMARY_SYSTEM:	Primary development system (source for .teamprise files, etc)
-#   DEVELOPMENT_LIST:	List of development systems (with teamprise enlistments)
-#   SYSTEM_LIST:	Complete list of systems with certificates (no enlistments needed)
-
-declare -a DEVELOPMENT_LIST SYSTEM_LIST
-
-PRIMARY_SYSTEM=jc64-cent7x-01
-
-# Note: We're now picking up the development hosts from the .pbuild file
-
-if [ -f ~/.pbuild ]; then
-    # DEVELOPMENT_LIST=(`egrep ^host: ~/.pbuild | egrep -e '[[:space:]]main$' -e '[[:space:]]main[[:space:]]' | awk '{print $3}'`)
-    DEVELOPMENT_LIST=( `egrep ^host: ~/.pbuild | awk '{print $3}' | sort -u` )
-    SYSTEM_LIST=( ${DEVELOPMENT_LIST[*]}
-        ostcdev-cent6-10 ostcdev64-cent6-01
-    )
-    BUILD_LIST=( `egrep ^host: ~/.pbuild | egrep 'build.*nip$' | awk '{print $3}' | sort -u` )
-fi
-
-# Random other aliases and enviornment variables
-
 IGNOREEOF=3
-
-alias file_manager="nautilus --no-desktop"
-alias doxy="firefox file:///home/jeffcof/dev/target/scxcore_doc/html/index.html &"
 
 #
 # Platform specific setup
@@ -93,29 +54,6 @@ else
     alias ls="ls -p"
 fi
 
-# Try and find teamprise (if found, set it up)
-
-if [ -f /opt/teamprise/tf ]; then
-    export TF_DIFF_COMMAND='diff -u --label "%6 / %7" "%1" "%2"'
-    export TF_AUTO_SAVE_CREDENTIALS=1
-
-    if [ -d /opt/tfprox/bin ]; then
-        export PATH=/opt/teamprise:/opt/tfprox/bin/:$PATH
-    else
-        echo "Warning: tfprox does not exist, tf not available" >&2
-    fi
-
-    # Check if tfproxy is running
-    if [ -x /opt/tfprox/bin/tfprox ]; then
-        if ! ps -aef | grep -i tfprox | grep -v grep  > /dev/null; then
-	    echo "Starting tfproxy..."
-	    if ! sudo /opt/tfprox/bin/tfprox -b; then
-	        echo "Fatal error:  Unable to start tfproxy..."
-	    fi
-        fi
-    fi
-fi
-
 # If Rational tools (purify & friends) are around, run initialization files
 # (typically installed in something like:
 #  /opt/rational/releases/PurifyPlus.7.0.0.0-012/i386_linux2/bin)
@@ -130,7 +68,6 @@ export PATH=/usr/local/bin:$PATH
 
 case `uname -s` in
     AIX)
-	alias ps-scx="ps -ef | grep cim"
 	alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
 	export PATH=/opt/freeware/bin:/usr/vacpp/bin:$PATH
 
@@ -144,7 +81,6 @@ case `uname -s` in
 	;;
 
     HP-UX)
-	alias ps-scx="ps -ef | grep cim"
 	alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
 
 	export PATH=/opt/java1.5/bin:$PATH
@@ -160,27 +96,10 @@ case `uname -s` in
             ln -s /usr/local/bin/gmake ~/bin/make
         fi
         export PATH=~/bin:$PATH
-
-        # Deal with OpenSSL linkages properly with pkg-config
-
-        case `uname -m` in
-            ia64)	# ia64
-		export PKG_CONFIG_PATH=/opt/openssl/lib/hpux32/pkgconfig
-	        ;;
-
-            9000/800)	# pa-risc
-                export PKG_CONFIG_PATH=/opt/openssl/lib/pkgconfig
-                ;;
-
-            *)
-                echo "ERROR: Unknown platform, check output of uname -m"
-                ;;
-        esac
 	;;
 
     Linux)
 	# alias ps-scx="ps aux | egrep \"cim|scx\""
-	alias ps-scx="ps aux | grep cim"
 	alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
 	export PATH=$PATH:/usr/sbin
 
@@ -188,15 +107,8 @@ case `uname -s` in
 	;;
 
     SunOS)
-	alias ps-scx="ps -ef | grep cim"
-
 	# On Solaris, emacs has a wierd menu in the minibuffer; clearing LANG gets rid of it
 	alias emacs="LANG= emacs"
-
-	if [ `uname -r` == '5.8' -o `uname -r` == '5.9' ]; then
-	    # Fix up LD_LIBRARY_PATH so we can run openssl ...
-	    export LD_LIBRARY_PATH=/usr/lib:/usr/local/lib:/usr/local/ssl/lib
-	fi
 
 	if [ `uname -r` == '5.8' -o `uname -r` == '5.9' ]; then
 	    alias users="who | cut -d\  -f1 | sort -u | tr \"\n\" ' '; echo"
@@ -236,19 +148,6 @@ esac
 
 unset S_HOSTNAME
 
-# Deal with "go" if it's installed
-
-if [ -d /usr/local/go ]; then
-   export PATH=$PATH:/usr/local/go/bin
-
-   export GOPATH=$HOME/go
-   export PATH=$PATH:$GOPATH/bin
-fi
-
-# Include environment for ConfigMgr project if it exists
-
-# [ -f ~/.bashrc_cm ] && source ~/.bashrc_cm
-
 # Some additional path stuff
 
 if [ -f /opt/git/bin/git ]; then
@@ -260,16 +159,8 @@ if [ -f ~/dev/git/myrepos/mr ]; then
     export PATH=~/dev/git/myrepos:$PATH
 fi
 
-# Support for rbenv
-if [ -d ~/.rbenv ]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init -)"
-fi
-
-export PATH=.:~/bin:${PATH}
-
 #
-# cmake support
+# Support for cmake
 #
 
 # First see if we have /opt/cmake; if so, that overrules all
@@ -292,7 +183,18 @@ if [ -d /usr/lib64/ccache ]; then
 fi
 
 #
-# pyenv support
+# Support for go (language)
+#
+
+if [ -d /usr/local/go ]; then
+   export PATH=$PATH:/usr/local/go/bin
+
+   export GOPATH=$HOME/go
+   export PATH=$PATH:$GOPATH/bin
+fi
+
+#
+# Support for pyenv
 #
 
 if [ -d ~/.pyenv ]; then
@@ -301,494 +203,17 @@ if [ -d ~/.pyenv ]; then
    eval "$(pyenv virtualenv-init -)"
 fi
 
-#
-# Support for building mesos
-#
-
-if [ -d /opt/mesos-format/2017-11-17/bin ]; then
-   export PATH=$PATH:/opt/mesos-format/2017-11-17/bin
+# Support for rbenv
+if [ -d ~/.rbenv ]; then
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
 fi
 
-if [ -d /opt/mesos-tidy/2017-11-17/bin ]; then
-   export PATH=$PATH:/opt/mesos-tidy/2017-11-17/bin
-fi
+export PATH=.:~/bin:${PATH}
 
 #
 # Functions
 #
-
-if [ -f ~/.pbuild ]; then
-
-distribute_host()
-{
-    if [ $HOSTNAME != "$PRIMARY_SYSTEM" ]; then
-	echo "Can only redistribute startup files from primary dev system" 1>&2
-	return 1;
-    fi
-
-    if [ "${1}" != "$PRIMARY_SYSTEM" -a "${1}" != "" ]; then
-	echo -n "  Copying to host: ${1} ..."
-	scp -q ~/.bash_profile ~/.bashrc ~/.emacs ~/.git-completion.bash ~/.gitconfig ~/.gitignore ~/.git-credentials ~/.pbuild ${1}:
-	[ $? -eq 0 ] && echo ""
-    fi
-}
-
-distribute_startup()
-{
-    if [ $HOSTNAME != "$PRIMARY_SYSTEM" ]; then
-	echo "Can only redistribute startup files from primary dev system" 1>&2
-	return 1;
-    fi
-
-    #
-    # Create a new bootstrap distribution file
-    #
-
-    cd ~/
-
-    # Copy TFS proxy password file
-    TFPROX_PATH=/opt/tfprox/etc/
-    DOMAIN_USER=`echo ${WINDOWS_USERNAME} | tr '[a-z]' '[A-Z]'`
-    DOMAIN_DOMAIN=`echo ${WINDOWS_DOMAIN} | tr '[a-z]' '[A-Z]'`
-    PROXY_FILENAME=tfprox.passwd.${DOMAIN_DOMAIN}.${DOMAIN_USER}
-
-    cp ${TFPROX_PATH}${PROXY_FILENAME} ~/
-    tar chf base-unix.tar \
-	.bash_logout .bash_profile .bashrc .emacs .git-completion.bash .gitconfig .gitignore .git-credentials .pbuild $PROXY_FILENAME \
-	.ssh/config .ssh/id_* .ssh/*msft* .ssh/authorized_keys .wincred \
-	bin/git-*.sh
-    rm ${PROXY_FILENAME}
-   
-    # Copy new .bash_profile and .emacs to the systems we know about
-    for i in ${SYSTEM_LIST[*]}; do
-	distribute_host ${i}
-    done
-
-    return 0;
-}
-
-fi
-
-# Function: tfs_activate_license
-#
-# Activate a license for SCX development
-
-if [ -f /opt/teamprise/tf ]; then
-
-tfs_activate_license()
-{
-    # Do the licensing ...
-
-    tf eula -accept
-
-    # Create - and copy - the password file (if it doesn't already exist)
-
-    echo
-    tfs_reset_password -nocreate
-}
-
-# Function: tfs_create_workspace
-#
-# Create a workspace for SCX development in a specific directory
-#
-# Parameters:
-#	Workspace Name	Name of the workspace to create
-#	Directory	Directory path to create workspace at
-#	Type		Type of enlistment ("main" or whatever)
-
-tfs_internal_get_workspace_map()
-{
-    case ${1} in
-
-	#
-	# Working branch stuff
-	#
-
-	work-vmm)
-	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/VMMXplat/OnPrem/VMMXplat"
-	    ;;
-
-	work-filebrowser)
-	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/MessageAnalyzer_FileBrowser"
-	    ;;
-
-	work-tools)
-	    echo "$/CDM_SFE/Branches/OnPrem/Imp/SCX_Dev/Common/SCX/Tools"
-	    ;;
-
-	#
-	# Mainline stuff
-	#
-
-	main-apache-omi)
-	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/Apache/omi"
-	    ;;
-
-	main-apache-pal)
-	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/Apache/pal"
-	    ;;
-
-	main-apache-apache)
-	    echo "$/CDM_SFE/Branches/OnPrem/Main/OnPrem/SCX_Dev/apache-osm"
-	    ;;
-
-	main-mysql-omi)
-	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/MySQL/omi"
-	    ;;
-
-	main-mysql-pal)
-	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/MySQL/pal"
-	    ;;
-
-	main-mysql-mysql)
-	    echo "$/CDM_SFE/Branches/OnPrem/Main/OnPrem/SCX_Dev/MySQL-osm"
-	    ;;
-
-	main-om-omi)
-	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/SCXCore/omi"
-	    ;;
-
-	main-om-pal)
-	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/SCXCore/pal"
-	    ;;
-
-	main-om-opsmgr)
-	    echo "$/CDM_SFE/Branches/OnPrem/Main/OnPrem/SCXCore"
-	    ;;
-
-	main-cm-omi)
-	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/SCXCM/omi"
-	    ;;
-
-	main-cm-pal)
-	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/SCXCM/pal"
-	    ;;
-
-	main-cm-configmgr)
-	    echo "$/CDM_SFE/Branches/OnPrem/Main/OnPrem/SCXCM/main"
-	    ;;
-
-	main-vmm-pal)
-	    echo "$/CDM_SFE/Branches/OnPrem/Main/Common/SCX/VMMXplat/pal"
-	    ;;
-
-	main-vmm-vmm)
-	    echo "$/CDM_SFE/Branches/OnPrem/Main/OnPrem/VMMXplat"
-	    ;;
-
-	#
-	# 2012R2_URNext stuff; Config Manager
-	#
-
-	2012R2_ur-cm-omi)
-	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/SCXCM/omi"
-	    ;;
-
-	2012R2_ur-cm-pal)
-	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/SCXCM/pal"
-	    ;;
-
-	2012R2_ur-cm-configmgr)
-	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012R2_URNext/OnPrem/SCXCM/main"
-	    ;;
-
-	#
-	# 2012R2_URNext stuff; Operations Manager
-	#
-
-	2012R2_ur-om-omi)
-	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/SCXCore/omi"
-	    ;;
-
-	2012R2_ur-om-pal)
-	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/SCXCore/pal"
-	    ;;
-
-	2012R2_ur-om-opsmgr)
-	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012R2_URNext/OnPrem/SCXCore"
-	    ;;
-
-	#
-	# 2012R2_URNext stuff; VMM
-	#
-
-	2012R2_ur-vmm-pal)
-	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012R2_URNext/Common/SCX/VMMXplat/pal"
-	    ;;
-
-	2012R2_ur-vmm-vmm)
-	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012R2_URNext/OnPrem/VMMXplat"
-	    ;;
-
-	#
-	# Odd-ball branches
-	#
-	v1-om)
-#	    echo "$/ScxCore/maintenance/v1-branch"
-	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SCX2007_UR/Core/maintenance/V1"
-	    ;;
-
-	2012SP1_ur-om)
-	    echo "$/CDM_SFE/Branches/OnPrem/Rel/SC2012SP1_UR/OnPrem/SCXCore"
-	    ;;
-
-	*)
-	    return 1
-	    ;;
-    esac
-
-    return 0
-}
-
-tfs_create_workspace()
-{
-    if [ -z "${1}" -o -z "${2}" -o -z "${3}" ]; then
-	echo "Usage: create_workspace <workspace-name> <dir-path> <type>" 1>&2
-	return 1;
-    fi
-
-    # Create the directory if it doesn't exist
-    DIR=${2}
-    [ -d ${DIR} ] || (echo "Creating directory '${DIR}' ..."; mkdir -p ${DIR})
-
-    LOCATION=`tfs_internal_get_workspace_map "${3}"`
-    if [ -z "${LOCATION}" ]; then
-	echo "Error: Enlistment type is not known; edit tfs_internal_get_workspace_map"
-	return 1
-    fi
-
-    # Determine the proper profile to use
-
-    case ${LOCATION} in
-	$/CDM_SFE*)
-	    PROFILE="tfprox"
-	    ;;
-
-	*)
-	    echo "Error: Unrecognized TFS branch path - can't determine TFS profile"
-	    return 1
-	    ;;
-    esac
-
-    # Finally, do our thing
-
-    echo "Creating workspace \"$1\" at directory \"$2\" ..."
-
-    tf workspace -new -location:server -collection:http://127.0.0.1:8080/tfs/cdm -login:${WINDOWS_DOMAIN}\\${WINDOWS_USERNAME},FakePassword $1
-    echo "Mapping workspace ..."
-    tf workfold -map -workspace:$1 "$LOCATION" $2
-}
-
-tfs_remap_workspace()
-{
-    if [ -z "${1}" -o -z "${2}" ]; then
-	echo "Usage: tfs_remap_workspace <workspace-alias> <dir-path>" 1>&2
-	return 1;
-    fi
-
-    LOCATION=`tfs_internal_get_workspace_map "${1}"`
-    if [ -z "${LOCATION}" ]; then
-	echo "Error: Enlistment type is not known; edit tfs_internal_get_workspace_map"
-	return 1
-    fi
-
-    (	cd $2
-
-	# Get the workspace name (grep for username/domain name to avoid SERVICEB authentication for OM v1-branch
-	echo "Looking up workspace name ..."
-	WORKSPACE_COUNT=`tf workspaces -format:brief | grep -i "${WINDOWS_DOMAIN}" | grep -i "${WINDOWS_USERNAME}" | wc -l`
-
-	if [ $WORKSPACE_COUNT -gt 1 ]; then
-	    echo "Error: More than one workspace is defind; unable to reconcile workspace name"
-	    return 1
-	fi
-
-	WORKSPACE=`tf workspaces -format:brief | grep -i "${WINDOWS_DOMAIN}" | grep -i "${WINDOWS_USERNAME}" | awk '{print $1}'`
-	echo "  (Workspace: $WORKSPACE)"
-
-	# Delete any existing changes
-	echo "Undoing any changes ..."
-	tf undo -r .
-
-	# Unmap/remap
-	echo "Unmapping old workspace ..."
-	tf workfold -unmap ${2}
-
-	echo "Mapping new workspace ..."
-	tf workfold -map $LOCATION ${2} -workspace:$WORKSPACE
-
-	# Update
-	echo "Updating workspace"
-	tf get
-    )
-}
-
-tfs_map_workspace()
-{
-    if [ -z "${1}" -o -z "${2}" -o -z "${3}" ]; then
-	echo "Usage: create_workspace <workspace-name> <dir-path> <type>" 1>&2
-	return 1;
-    fi
-
-    # Create the directory if it doesn't exist
-    DIR=${2}
-    [ -d ${DIR} ] || (echo "Creating directory '${DIR}' ..."; mkdir -p ${DIR})
-
-    LOCATION=`tfs_internal_get_workspace_map "${3}"`
-    if [ -z "${LOCATION}" ]; then
-	echo "Error: Enlistment type \"${3}\" is not known in tfs_internal_get_workspace_map"
-	return 1
-    fi
-
-    echo "Mapping workspace \"$1\" at directory \"$2\" ..."
-
-    tf workfold -map -workspace:$1 "$LOCATION" $2
-}
-
-tfs_create_all_workspaces()
-{
-    if [ -z "${1}" ]; then
-	echo "Usage: tfs_create_all_workspaces <workspace-name>" 1>&2
-	return 1;
-    fi
-
-    DIR_PATHS=(~/dev/2012R2_URnext/om/opsmgr ~/dev/2012R2_URnext/om/pal ~/dev/2012R2_URnext/om/omi)
-    BRANCH_NAMES=(2012R2_ur-om-opsmgr 2012R2_ur-om-pal 2012R2_ur-om-omi)
-    # Create the directories in case they don't exist
-    for i in ${DIR_PATHS[*]}; do
-	mkdir -p ${i}
-    done
-
-    COUNT=${#DIR_PATHS[*]}
-    for (( i=0; $i < ${COUNT}; i++ )); do
-	if [ $i -eq 0 ]; then
-	    tfs_create_workspace ${1} ${DIR_PATHS[$i]} ${BRANCH_NAMES[$i]}
-	else
-	    tfs_map_workspace ${1} ${DIR_PATHS[$i]} ${BRANCH_NAMES[$i]}
-	fi
-    done
-}
-
-# Function: tfs_reset_password
-#
-# Re-enter the password for TFS - useful on a password change
-
-tfs_reset_password()
-{
-    # Create - and copy - the password file
-    # Note that tfprox wants the username to be in uppercase ...
-
-    TFPROX_PATH=/opt/tfprox/etc/
-    DOMAIN_USER=`echo ${WINDOWS_USERNAME} | tr '[a-z]' '[A-Z]'`
-    DOMAIN_DOMAIN=`echo ${WINDOWS_DOMAIN} | tr '[a-z]' '[A-Z]'`
-    PROXY_FILENAME=tfprox.passwd.${DOMAIN_DOMAIN}.${DOMAIN_USER}
-
-    if [ -e ${TFPROX_PATH}${PROXY_FILENAME} -a "$1" = "-nocreate" ]; then
-	echo "Password cache file ${PROXY_FILENAME} already exists"
-    else
-	echo "Enter your domain password for user ${DOMAIN_USER}:"
-	tfpasswd ${DOMAIN_DOMAIN} ${DOMAIN_USER}
-	sudo cp ${PROXY_FILENAME} ${TFPROX_PATH}
-	rm ${PROXY_FILENAME}
-    fi
-}
-
-# Function: tfs_distribute_password()
-#
-# Distributes cached password in TFS to all other hosts
-
-tfs_distribute_password()
-{
-    if [ "$1" != "DISTRIBUTE" ]; then
-	echo "Usage: tfs_distribute_password DISTRIBUTE" >&2
-	return 1
-    fi
-
-    # Determine the name of the password file
-    DOMAIN_DOMAIN=`echo ${WINDOWS_DOMAIN} | tr '[a-z]' '[A-Z]'`
-    DOMAIN_USER=`echo ${WINDOWS_USERNAME} | tr '[a-z]' '[A-Z]'`
-    PROXY_FILENAME=tfprox.passwd.${DOMAIN_DOMAIN}.${DOMAIN_USER}
-
-    if [ "$2" = "" ]; then
-	if [ $HOSTNAME != "$PRIMARY_SYSTEM" ]; then
-	    echo "Can only redistribute startup files from primary dev system" 1>&2
-	    return 1
-	fi
-
-	# The password file should exist already
-
-	PROXY_FILENAME="/opt/tfprox/etc/${PROXY_FILENAME}"
-	if [ ! -e $PROXY_FILENAME ]; then
-	    echo "Error: Proxy file ${PROXY_FILENAME} does not exist!"
-	    return 1
-	fi
-
-	PROXY_PASSWORD=`cat ${PROXY_FILENAME}`
-
-	# Distribute the password hash file to each of our hosts
-	for i in ${SYSTEM_LIST[*]}; do
-	    if [ ${i} != "$PRIMARY_SYSTEM" ]; then
-		echo -n "  Updating host: ${i} ..."
-		ssh ${i} "source ~/.bash_profile; tfs_distribute_password DISTRIBUTE ${PROXY_PASSWORD}"
-		[ $? -eq 0 ] && echo ""
-	    fi
-	done
-
-	return 0
-    fi
-
-    # This code runs on remote system
-
-    echo "$2" > ${PROXY_FILENAME}
-    sudo cp ${PROXY_FILENAME} /opt/tfprox/etc/
-    rm ${PROXY_FILENAME}
-}
-
-# Function: tfs_rebuild()
-#
-# Rebuilds & reinstalls TFS from source code
-
-tfs_rebuild()
-{
-    if [ "$1" == "" ]; then
-	echo "Usage: tfs_rebuild <version>" >&2
-	return 1
-    fi
-
-    # Verify that the source file exists
-
-    TFPROX_TAR_GZ=~/tfprox-$1.tar.gz
-    TFPROX_DIR=/tmp/tfprox-$1/
-    if [ ! -f $TFPROX_TAR_GZ ]; then
-	echo "File $TFPROX_TAR_GZ does not exist" >&2
-	return 1
-    fi
-
-    # Kill off tfprox if it's running - in a way that runs on all platforms
-
-    for i in `ps -ef | grep tfprox | grep -v grep | awk '{print $2}'`; do
-	echo "Killing process $i ..."
-	sudo /bin/kill -9 $i
-    done
-
-    # Unpack the tfprox distribution, rebuild it, and install it
-
-    cp $TFPROX_TAR_GZ /tmp
-    gunzip /tmp/tfprox-$1.tar.gz
-    ( cd /tmp; tar xf tfprox-$1.tar )
-    ( cd $TFPROX_DIR; ./configure; echo "Building tfprox ..."; make; echo "Installing tfprox ..."; sudo make install )
-    echo "Cleaning up ..."
-    rm -rf /tmp/tfprox-$1*
-
-    # Restart new TFS server
-
-    echo "Restarting TFS ..."
-    if ! sudo /opt/tfprox/bin/tfprox -b; then
-	echo "Fatal error:  Unable to start tfproxy..."
-    fi
-}
-
-fi
 
 # Function: global_find
 #
