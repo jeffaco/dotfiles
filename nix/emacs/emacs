@@ -112,10 +112,6 @@
   (interactive)
   (revert-buffer nil t))
 
-;; Support for Mesos (Clang formatting rules)
-(load "/opt/mesos-format/2017-11-17/share/clang/clang-format.el")
-(global-set-key (kbd "C-c m") 'clang-format-region)
-
 ;; 
 ;; Query-replace - inserting newline: 
 ;;  M-% oldstring<enter>C-Q C-J
