@@ -66,25 +66,13 @@
 
 ;; Various customizations
 
+(setq blink-cursor-mode 0)
+
 (setq column-number-mode t)
 (setq line-number-mode t)
 
 (setq-default cperl-continued-statement-offset 4)
 (setq-default cperl-indent-level 4)
-
-;; Customizations for tramp
-;;
-;; (This only works on systems w/tramp - otherwise warnings result)
-
-(cond ((equal system-name "scxcore-suse01.opsmgr.lan")
-       (setq tramp-default-method "ssh"
-;;	     tramp-default-user "jeffcof"
-	     )
-
-       (add-to-list 'backup-directory-alist
-		    (cons tramp-file-name-regexp nil))
-       )
-      )
 
 ;; Set up a few key definitions
 
