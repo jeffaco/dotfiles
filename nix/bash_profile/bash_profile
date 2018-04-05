@@ -209,6 +209,13 @@ if [ -d ~/.rbenv ]; then
     eval "$(rbenv init -)"
 fi
 
+#
+# Hana-specific configuration
+#
+
+export ENLISTMENTROOT=$HOME/dev/hanarp
+export GOPATH=$GOPATH:$ENLISTMENTROOT:$ENLISTMENTROOT/vendor
+
 export PATH=.:~/bin:${PATH}
 
 #
