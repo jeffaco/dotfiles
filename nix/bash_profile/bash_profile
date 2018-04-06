@@ -214,6 +214,7 @@ fi
 #
 
 export ENLISTMENTROOT=$HOME/dev/hanarp
+export PATH=$PATH:${GOPATH//://bin:}/bin
 export GOPATH=$GOPATH:$ENLISTMENTROOT:$ENLISTMENTROOT/vendor
 
 export PATH=.:~/bin:${PATH}
