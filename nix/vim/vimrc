@@ -25,3 +25,8 @@ set ruler
 set laststatus=2
 set showcmd
 
+" Pathogen support (VIM Package Management)
+
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
