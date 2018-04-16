@@ -1,3 +1,7 @@
+" Tab Stop handling
+
+set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
+
 " Allow status lines to be selected or hidden (show by default)
 
 let s:hidden_all = 0
