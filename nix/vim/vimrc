@@ -24,13 +24,21 @@ endfunction
 nnoremap <S-h> :call ToggleHiddenAll()<CR>
 
 let s:hidden_all = 0
+
 set showmode
 set ruler
 set laststatus=2
 set showcmd
 
-" Pathogen support (VIM Package Management)
-
-execute pathogen#infect()
 syntax on
 filetype plugin indent on
+
+" Pathogen support (VIM Package Management)
+
+if exists("*pathogen#infect")
+    execute pathogen#infect()
+endif
+
+" Make it super easy to edit .vimrc
+
+noremap ,vim :new ~/.vimrc<cr>
