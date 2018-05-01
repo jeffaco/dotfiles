@@ -187,10 +187,19 @@ fi
 #
 
 if [ -d /usr/local/go ]; then
-   export PATH=$PATH:/usr/local/go/bin
+   # Preferences for GO path differ based on O/S
 
-   export GOPATH=$HOME/go
-   export PATH=$PATH:$GOPATH/bin
+   case `uname -s` in
+        Darwin)
+            export GOPATH=$HOME/local/go
+	    ;;
+
+        *)
+            export GOPATH=$HOME/go
+	    ;;
+   esac
+
+   export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 fi
 
 #
@@ -213,11 +222,13 @@ fi
 # Hana-specific configuration
 #
 
-export ENLISTMENTROOT=$HOME/dev/hanarp
-export PATH=$PATH:${GOPATH//://bin:}/bin
-export GOPATH=$GOPATH:$ENLISTMENTROOT:$ENLISTMENTROOT/vendor
+if [ -d $HOME/dev/hanarp ]; then
+   export ENLISTMENTROOT=$HOME/dev/hanarp
+   export PATH=$PATH:${GOPATH//://bin:}/bin
+   export GOPATH=$GOPATH:$ENLISTMENTROOT:$ENLISTMENTROOT/vendor
 
-export PATH=.:~/bin:${PATH}
+   export PATH=.:~/bin:${PATH}
+fi
 
 #
 # Functions
