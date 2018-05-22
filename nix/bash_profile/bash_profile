@@ -190,13 +190,18 @@ if [ -d /usr/local/go ]; then
    # Preferences for GO path differ based on O/S
 
    case `uname -s` in
-        Darwin)
+       Darwin)
             export GOPATH=$HOME/local/go
-	    ;;
-
+            ;;
+        Linux)
+            export GOPATH=$HOME/go
+            if [ -f /opt/goland/bin/goland.sh ]; then
+                alias goland=/opt/goland/bin/goland.sh
+            fi
+            ;;
         *)
             export GOPATH=$HOME/go
-	    ;;
+            ;;
    esac
 
    export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
