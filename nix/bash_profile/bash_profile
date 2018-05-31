@@ -155,8 +155,8 @@ if [ -f /opt/git/bin/git ]; then
     unset SSH_ASKPASS
 fi
 
-if [ -f ~/dev/git/myrepos/mr ]; then
-    export PATH=~/dev/git/myrepos:$PATH
+if [ -f ~/dev/myrepos/mr ]; then
+    export PATH=~/dev/myrepos:$PATH
 fi
 
 #
