@@ -101,8 +101,8 @@
   (revert-buffer nil t))
 
 ;; Make golint available for go language
-(add-to-list 'load-path (concat (getenv "HOME")  "/go/src/golang.org/x/lint/misc/emacs"))
-(require 'golint)
+;(add-to-list 'load-path (concat (getenv "HOME")  "/go/src/golang.org/x/lint/misc/emacs"))
+;(require 'golint)
 
 ;; 
 ;; Query-replace - inserting newline: 
