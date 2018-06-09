@@ -194,7 +194,7 @@ if [ -d /usr/local/go ]; then
             export GOPATH=$HOME/local/go
             ;;
         Linux)
-            export GOPATH=$HOME/go
+            export GOPATH=$HOME/dev/go
             if [ -f /opt/goland/bin/goland.sh ]; then
                 alias goland=/opt/goland/bin/goland.sh
             fi
