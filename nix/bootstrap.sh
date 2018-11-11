@@ -43,7 +43,9 @@ for i in ~/.*; do
     [ ! -h "$i" ] && continue
 
     # We have a link: Is it stale? If so, delete it ...
-    if [ ! -f "$i" ]; then
+    # Since we can't use readlink, assume that if the link is
+    # not pointing to a file or a directory that it is stale.
+    if [ ! -f "$i" -a ! -d "$i" ]; then
         echo "Deleting stale link: $i"
         rm "$i"
     fi
