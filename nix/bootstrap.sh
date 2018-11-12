@@ -27,7 +27,21 @@ for i in "$BASEDIR"/*; do
         FILE="$(basename "$j")"
         BASEFILE="$HOME/.$FILE"
  
-        if [ -f "$BASEFILE" -o -h "$BASEFILE" ]; then
+        if [ -h "$BASEFILE" ]; then
+           echo "Updating link : $BASEFILE"
+           rm "$BASEFILE"
+        elif [ -d "$BASEFILE" ]; then
+           echo "Replacing directory: $BASEFILE (saving old version)"
+           SAVE_NAME="$BASEFILE.dotfiles.sav"
+           if [ -e "$SAVE_NAME" ]; then
+              SAVE_NAME="$SAVE_NAME.$(date +'%s')"
+           fi
+           mv "$BASEFILE" "$SAVE_NAME"
+        elif [ -e "$BASEFILE" ]; then
+            # if it exists but isn't a directory or a link,
+            # assume it is a file. Doesn't seem worth it
+            # to try to handle other things (e.g. unix sockets)
+            # specially.
             echo "Replacing file: $BASEFILE"
             rm "$BASEFILE"
         else
