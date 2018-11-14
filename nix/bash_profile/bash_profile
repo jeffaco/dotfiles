@@ -228,9 +228,7 @@ fi
 #
 
 if [ -d $HOME/dev/hanarp ]; then
-   export ENLISTMENTROOT=$HOME/dev/hanarp
-   export PATH=$PATH:${GOPATH//://bin:}/bin
-   export GOPATH=$GOPATH:$ENLISTMENTROOT:$ENLISTMENTROOT/vendor
+   export ENLISTMENTROOT=$GOPATH/src/hanarp
 
    export PATH=.:~/bin:${PATH}
 fi
