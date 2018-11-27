@@ -227,7 +227,7 @@ fi
 # Hana-specific configuration
 #
 
-if [ -d $HOME/dev/hanarp ]; then
+if [ -d $GOPATH/src/hanarp ]; then
    export ENLISTMENTROOT=$GOPATH/src/hanarp
 
    export PATH=.:~/bin:${PATH}
