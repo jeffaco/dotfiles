@@ -68,23 +68,26 @@ export PATH=/usr/local/bin:$PATH
 
 case `uname -s` in
     AIX)
-	alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
-	export PATH=/opt/freeware/bin:/usr/vacpp/bin:$PATH
+	    alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
+	    export PATH=/opt/freeware/bin:/usr/vacpp/bin:$PATH
 
-	# AIX 7.1 appears to have a low data limit, causing dbx grief
-	[ `uname -v` -eq 7 ] && ulimit -d unlimited
-	;;
+	    # AIX 7.1 appears to have a low data limit, causing dbx grief
+	    [ `uname -v` -eq 7 ] && ulimit -d unlimited
+    	;;
 
     Darwin)
-	alias ps-scx="ps -ef | grep cim"
-	alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
-	;;
+        # Eliminate annoying message since Mac OS/X has moved to zsh
+        export BASH_SILENCE_DEPRECATION_WARNING=1
+
+	    alias ps-scx="ps -ef | grep cim"
+	    alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
+	    ;;
 
     HP-UX)
-	alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
+    	alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
 
-	export PATH=/opt/java1.5/bin:$PATH
-	export UNIX_STD=2003
+	    export PATH=/opt/java1.5/bin:$PATH
+    	export UNIX_STD=2003
 
         # HP utilities are very sensitive to locale, and some don't work with utf8
         LANG=C
@@ -96,41 +99,41 @@ case `uname -s` in
             ln -s /usr/local/bin/gmake ~/bin/make
         fi
         export PATH=~/bin:$PATH
-	;;
+	    ;;
 
     Linux)
-	# alias ps-scx="ps aux | egrep \"cim|scx\""
-	alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
-	export PATH=$PATH:/usr/sbin
+    	# alias ps-scx="ps aux | egrep \"cim|scx\""
+    	alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
+    	export PATH=$PATH:/usr/sbin
 
-	export PS1="\u:\W> "
-	;;
+    	export PS1="\u:\W> "
+	    ;;
 
     SunOS)
-	# On Solaris, emacs has a wierd menu in the minibuffer; clearing LANG gets rid of it
-	alias emacs="LANG= emacs"
+    	# On Solaris, emacs has a wierd menu in the minibuffer; clearing LANG gets rid of it
+	    alias emacs="LANG= emacs"
 
-	if [ `uname -r` == '5.8' -o `uname -r` == '5.9' ]; then
-	    alias users="who | cut -d\  -f1 | sort -u | tr \"\n\" ' '; echo"
-	else
-	    alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
-	fi
+    	if [ `uname -r` == '5.8' -o `uname -r` == '5.9' ]; then
+	        alias users="who | cut -d\  -f1 | sort -u | tr \"\n\" ' '; echo"
+	    else
+	        alias users="users | tr ' ' \"\n\" | sort -u | tr \"\n\" ' '; echo"
+	    fi
 
-	# Sun systems put software in an unusual spot (generally not on path)
-	if [ `uname -r` == '5.11' ]; then
-	    export MANPATH="/usr/share/man:/opt/solstudio12.2/man"
-	    export PATH="$PATH:/opt/solstudio12.2/bin"
-	else
-	    export MANPATH="/usr/share/man:/usr/sfw/man:/opt/sfw/man:/opt/SUNWspro/man:/usr/local/man"
-	    export PATH="$PATH:/usr/sfw/bin:/opt/sfw/bin"
-	    export PATH="$PATH:/opt/SUNWspro/bin:/opt/SUNWspro/prod/bin"
-	fi
+    	# Sun systems put software in an unusual spot (generally not on path)
+	    if [ `uname -r` == '5.11' ]; then
+	        export MANPATH="/usr/share/man:/opt/solstudio12.2/man"
+	        export PATH="$PATH:/opt/solstudio12.2/bin"
+	    else
+	        export MANPATH="/usr/share/man:/usr/sfw/man:/opt/sfw/man:/opt/SUNWspro/man:/usr/local/man"
+	        export PATH="$PATH:/usr/sfw/bin:/opt/sfw/bin"
+	        export PATH="$PATH:/opt/SUNWspro/bin:/opt/SUNWspro/prod/bin"
+	    fi
 
-	export PATH="$PATH:/usr/sbin:/opt/csw/bin"
-	;;
+	    export PATH="$PATH:/usr/sbin:/opt/csw/bin"
+	    ;;
 
     *)
-	;;
+    	;;
 esac
 
 # Host-specific settings
